@@ -309,6 +309,44 @@
   .benefit-list{display:flex;flex-direction:column;gap:10px;}
   .benefit-list li{font-size:.92rem;color:var(--on-surface-dim);display:flex;gap:10px;}
   .benefit-list li::before{content:"✓";color:var(--teal);font-weight:600;flex:0 0 auto;}
+  .card-badge{
+    display:inline-block;font-family:var(--ff-mono);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--accent);background:var(--surface);border:1px solid var(--accent);border-radius:999px;padding:4px 10px;margin-bottom:12px;
+  }
+  .content-card.clickable{cursor:pointer;transition:transform .2s,box-shadow .2s;}
+  .content-card.clickable:hover{transform:translateY(-4px);box-shadow:var(--shadow-deep);}
+
+  /* ============ DEMONSTRAÇÃO (mesmo assunto, formatos diferentes) ============ */
+  .demo-head{max-width:62ch;}
+  .demo-topic{
+    display:inline-block;font-family:var(--ff-mono);font-size:.78rem;letter-spacing:.04em;color:var(--on-surface);
+    background:var(--surface-raised-2);border:1px solid var(--edge);border-radius:999px;padding:8px 16px;
+    margin-top:18px;margin-bottom:36px;
+  }
+
+  /* ============ ORIGEM DOS MATERIAIS ============ */
+  .origin-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:clamp(32px,6vw,56px);align-items:center;}
+  .author-photo{
+    aspect-ratio:3/4;max-width:300px;border:2px dashed var(--edge-strong);border-radius:16px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+    background:var(--surface);color:var(--on-surface-dimmer);padding:20px;text-align:center;
+  }
+  .author-photo svg{width:52px;height:52px;}
+  .author-photo span{font-family:var(--ff-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;max-width:20ch;}
+  .origin-text{font-family:var(--ff-display);font-size:1.18rem;line-height:1.75;color:var(--on-surface);font-style:italic;}
+  @media (max-width:880px){ .origin-grid{grid-template-columns:1fr;} .author-photo{margin-inline:auto;} }
+
+  /* ============ PARA QUEM É ============ */
+  .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .audience-card{background:var(--surface-raised);border:1px solid var(--edge);border-radius:16px;padding:28px;}
+  .audience-card h3{font-family:var(--ff-mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px;}
+  .audience-card.yes h3{color:var(--accent);}
+  .audience-card.no h3{color:var(--on-surface-dimmer);}
+  .audience-list{display:flex;flex-direction:column;gap:12px;}
+  .audience-list li{font-size:.94rem;color:var(--on-surface-dim);display:flex;gap:10px;}
+  .audience-card.yes .audience-list li::before{content:"✓";color:var(--teal);font-weight:600;flex:0 0 auto;}
+  .audience-card.no .audience-list li::before{content:"–";color:var(--on-surface-dimmer);font-weight:600;flex:0 0 auto;}
+  @media (max-width:760px){ .audience-grid{grid-template-columns:1fr;} }
 
   /* ============ PLANOS (página) ============ */
   .planos-head{max-width:54ch;margin-bottom:48px;}
@@ -711,6 +749,7 @@ try{
             <img src="assets/resumo-autoral.png" alt="Exemplo real de uma página de resumo autoral" loading="lazy">
           </div>
           <div>
+            <p class="card-badge" id="resumosBadgeChip"></p>
             <h3>Retome as explicações</h3>
             <p class="content-desc">Resumos produzidos durante seis anos de graduação em Medicina, reunindo explicações e conteúdos utilizados na rotina de estudos.</p>
           </div>
@@ -738,6 +777,109 @@ try{
     </div>
   </section>
 
+  <!-- ============ DEMONSTRAÇÃO: MESMO ASSUNTO, FORMATOS DIFERENTES ============ -->
+  <section class="section paper" id="demonstracao">
+    <div class="container">
+      <div class="demo-head">
+        <p class="eyebrow">Exemplo real</p>
+        <h2 class="section-title" style="max-width:30ch;">Um mesmo assunto. Diferentes formas de revisar.</h2>
+        <p class="lede" style="margin-top:14px;">Conheça como os resumos e as fichas-resumo se complementam na organização dos estudos.</p>
+      </div>
+      <span class="demo-topic">Contracepção — Ginecologia e Obstetrícia</span>
+      <!-- Pra acrescentar um 3º card (mapa mental autoral do mesmo assunto, se/quando existir):
+           copie um dos <article class="content-card clickable reveal"> abaixo e adicione um 3º item
+           no array DEMO_ITEMS, no <script> no final da página. -->
+      <div class="content-grid">
+        <article class="content-card clickable reveal" id="demoCard0" tabindex="0" role="button" aria-label="Ampliar: Resumo Completo de Contracepção">
+          <div class="mockup-real">
+            <img src="assets/resumo-autoral.png" alt="Página real do resumo completo de Contracepção" loading="lazy">
+          </div>
+          <div>
+            <h3>Resumo Completo</h3>
+            <p class="content-desc">Para retomar explicações, conceitos e informações de maneira mais detalhada.</p>
+          </div>
+        </article>
+        <article class="content-card clickable reveal" id="demoCard1" tabindex="0" role="button" aria-label="Ampliar: Ficha-Resumo de Contracepção">
+          <div class="mockup-real">
+            <img src="assets/ficha-resumo.png" alt="Ficha-resumo A4 real de Contracepção" loading="lazy">
+          </div>
+          <div>
+            <h3>Ficha-Resumo</h3>
+            <p class="content-desc">Para consultar os principais pontos do assunto em uma única ficha visual.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ORIGEM DOS MATERIAIS ============ -->
+  <section class="section paper" id="origem">
+    <div class="container origin-grid">
+      <!-- EDITE: substitua o placeholder abaixo por uma fotografia real da autora -->
+      <div class="author-photo reveal" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="24" cy="17" r="9"></circle>
+          <path d="M6 42c0-10 8-16 18-16s18 6 18 16"></path>
+        </svg>
+        <span>Foto real — a inserir</span>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Sobre o material</p>
+        <h2 class="section-title" style="max-width:28ch;">Materiais que nasceram durante seis anos de Medicina.</h2>
+        <p class="origin-text" style="margin-top:18px;">Durante minha graduação em Medicina, fui construindo meus próprios resumos para organizar os estudos. Com o tempo, também desenvolvi fichas-resumo para condensar os assuntos e facilitar minhas revisões. Agora, reuni esses materiais em uma biblioteca digital para compartilhar essa forma de estudar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARA QUEM É O ATLAS RÁPIDO ============ -->
+  <section class="section paper" id="publico">
+    <div class="container">
+      <div class="content-head">
+        <p class="eyebrow">Antes de decidir</p>
+        <h2 class="section-title" style="max-width:26ch;">Para quem é o Atlas Rápido?</h2>
+      </div>
+      <div class="audience-grid">
+        <div class="audience-card yes reveal">
+          <h3>É pra quem</h3>
+          <ul class="audience-list">
+            <li>Estuda Medicina e deseja complementar suas revisões.</li>
+            <li>Prefere materiais visuais e organizados.</li>
+            <li>Quer consultar resumos e fichas por assunto.</li>
+            <li>Busca materiais digitais pra estudar no próprio ritmo.</li>
+          </ul>
+        </div>
+        <div class="audience-card no reveal">
+          <h3>Não é pra quem</h3>
+          <ul class="audience-list">
+            <li>Procura substituir livros, aulas e materiais oficiais.</li>
+            <li>Espera aprovação garantida em provas ou residência.</li>
+            <li>Procura acompanhamento acadêmico individual.</li>
+            <li>Espera um curso completo com aulas e tutoria.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ O QUE VOCÊ RECEBE (só o confirmado) ============ -->
+  <section class="section paper" id="o-que-voce-recebe">
+    <div class="container">
+      <div class="content-head">
+        <p class="eyebrow">Antes de ver os planos</p>
+        <h2 class="section-title" style="max-width:22ch;">O que você recebe</h2>
+        <p class="lede" style="margin-top:12px;">Só o que já está confirmado — sem número provisório.</p>
+      </div>
+      <ul class="specs-list">
+        <li id="specMapas"></li>
+        <li id="specResumos" data-flag="resumosAutorais"></li>
+        <li id="specFichas" data-flag="fichasResumo"></li>
+        <li><strong>Especialidades contempladas:</strong> Clínica Médica, Cirurgia, Pediatria, Ginecologia e Obstetrícia, Semiologia, Farmacologia, Emergências, Saúde Coletiva.</li>
+        <li><strong>Formato dos arquivos:</strong> PDF digital, em alta resolução, otimizado pra tela e pra impressão.</li>
+        <li><strong>Forma de acesso:</strong> Digital, liberado por e-mail após a confirmação do pagamento.</li>
+      </ul>
+    </div>
+  </section>
+
   <!-- ============ PLANOS (página) ============ -->
   <section class="section paper" id="planos">
     <div class="container">
@@ -756,13 +898,13 @@ try{
             <span class="per">pagamento único</span>
           </div>
           <ul class="plan-feats">
-            <li data-flag="mapasMentais">15 mapas mentais selecionados de Medicina</li>
-            <li>Guia rápido de utilização dos mapas</li>
+            <li data-flag="mapasMentais">15 mapas mentais selecionados</li>
+            <li>Guia rápido de utilização</li>
             <li>Checklist básico de revisão</li>
             <li>Acesso digital</li>
             <li>Garantia de 7 dias</li>
           </ul>
-          <a href="#" class="btn btn-ghost plan-cta" id="ctaEssencial">QUERO O ESSENCIAL</a>
+          <a href="#" class="btn btn-ghost plan-cta" id="ctaEssencial">QUERO COMEÇAR A REVISAR</a>
         </article>
 
         <!-- EDITE: o link real vem de CONFIG.plans.completo.checkoutUrl, no <script> no final da página -->
@@ -777,15 +919,15 @@ try{
           <ul class="plan-feats">
             <li>Tudo do Kit Essencial</li>
             <li data-flag="bibliotecaAmpliada">Biblioteca ampliada de mapas mentais</li>
+            <li data-flag="resumosAutorais">Resumos autorais produzidos durante seis anos de Medicina</li>
+            <li data-flag="fichasResumo">Fichas-resumo visuais desenvolvidas a partir dos resumos</li>
             <li data-flag="mapasClinicosExtras">Mapas clínicos complementares</li>
-            <li data-flag="resumosAutorais">Resumos autorais de Medicina</li>
-            <li data-flag="fichasResumo">Fichas-resumo visuais</li>
-            <li data-flag="questoesProvas">Questões comentadas ou provas autorizadas, quando disponíveis</li>
-            <li data-flag="flashcards" data-flag-or="outrosBonus">Bônus adicionais, quando disponíveis</li>
+            <li data-flag="questoesProvas">Questões comentadas ou provas com distribuição autorizada, quando disponíveis</li>
+            <li data-flag="flashcards" data-flag-or="outrosBonus">Materiais extras de organização, quando disponíveis</li>
             <li>Acesso digital</li>
             <li>Garantia de 7 dias</li>
           </ul>
-          <a href="#" class="btn btn-primary plan-cta" id="ctaCompleto">QUERO O COMPLETO</a>
+          <a href="#" class="btn btn-primary plan-cta" id="ctaCompleto">QUERO O KIT COMPLETO</a>
         </article>
       </div>
 
@@ -795,13 +937,13 @@ try{
             <tr><th>Recurso</th><th>Essencial</th><th>Completo</th></tr>
           </thead>
           <tbody>
-            <tr data-flag="mapasMentais"><td>15 mapas mentais de Medicina</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr data-flag="mapasMentais"><td>15 mapas mentais selecionados</td><td class="yes">✓</td><td class="yes">✓</td></tr>
             <tr data-flag="bibliotecaAmpliada"><td>Biblioteca ampliada de mapas mentais</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="mapasClinicosExtras"><td>Mapas clínicos complementares</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr data-flag="resumosAutorais"><td>Resumos autorais de Medicina</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr data-flag="fichasResumo"><td>Fichas-resumo visuais</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="questoesProvas"><td>Questões comentadas / provas autorizadas</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="flashcards" data-flag-or="outrosBonus"><td>Bônus adicionais (quando disponíveis)</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr data-flag="mapasClinicosExtras"><td>Mapas clínicos complementares</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr data-flag="questoesProvas"><td>Questões comentadas / distribuição autorizada</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr data-flag="flashcards" data-flag-or="outrosBonus"><td>Materiais extras de organização</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr><td>Acesso digital</td><td class="yes">✓</td><td class="yes">✓</td></tr>
             <tr><td>Garantia de 7 dias</td><td class="yes">✓</td><td class="yes">✓</td></tr>
           </tbody>
@@ -932,9 +1074,18 @@ try{
 
   var CONFIG = {
     plans: {
-      // EDITE: checkoutUrl de cada plano (link real da Hotmart). "#" é placeholder.
-      essencial: { name:"Kit Essencial", price:17.90, checkoutUrl:"#" },
-      completo:  { name:"Kit Completo",  price:37.90, checkoutUrl:"#" }
+      // EDITE: checkoutUrl de cada plano (link real da Hotmart). "" = ainda não
+      // cadastrado — enquanto estiver vazio, o botão não redireciona pra lugar
+      // nenhum (fica inerte de propósito, pra nunca mandar alguém pra um link errado).
+      essencial: { name:"Kit Essencial", price:17.90, checkoutUrl:"" },
+      completo:  { name:"Kit Completo",  price:37.90, checkoutUrl:"" }
+    },
+    // EDITE: quando souber os números exatos, preencha aqui — nada mais precisa mudar.
+    // null = ainda não confirmado (a página usa um texto genérico em vez de inventar número).
+    counts: {
+      totalMapasConfirmados:   null,
+      totalResumosConfirmados: null,
+      totalFichasConfirmadas:  null
     }
   };
 
@@ -1006,12 +1157,15 @@ try{
     var priceC = document.getElementById('priceCompleto');
     if(priceC) priceC.innerHTML = '<small>R$</small>' + formatBRL(CONFIG.plans.completo.price);
 
+    // Só aponta o botão pro checkout real quando o link estiver preenchido.
+    // Sem link configurado, o clique não navega pra lugar nenhum (ver bloco
+    // de rastreamento abaixo) — nunca manda ninguém pra um checkout errado.
     var ctaE = document.getElementById('ctaEssencial');
-    if(ctaE && CONFIG.plans.essencial.checkoutUrl && CONFIG.plans.essencial.checkoutUrl !== '#'){
+    if(ctaE && CONFIG.plans.essencial.checkoutUrl){
       ctaE.href = CONFIG.plans.essencial.checkoutUrl;
     }
     var ctaC = document.getElementById('ctaCompleto');
-    if(ctaC && CONFIG.plans.completo.checkoutUrl && CONFIG.plans.completo.checkoutUrl !== '#'){
+    if(ctaC && CONFIG.plans.completo.checkoutUrl){
       ctaC.href = CONFIG.plans.completo.checkoutUrl;
     }
 
@@ -1041,10 +1195,21 @@ try{
         fbq('track', 'InitiateCheckout', { content_name:p.name, value:p.price, currency:'BRL' });
       }catch(e){}
     }
-    var ctaE2 = document.getElementById('ctaEssencial');
-    if(ctaE2) ctaE2.addEventListener('click', function(){ trackInitiateCheckout('essencial'); });
-    var ctaC2 = document.getElementById('ctaCompleto');
-    if(ctaC2) ctaC2.addEventListener('click', function(){ trackInitiateCheckout('completo'); });
+    function wireCta(id, planKey){
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.addEventListener('click', function(ev){
+        var configured = CONFIG.plans[planKey].checkoutUrl;
+        if(!configured){
+          // link ainda não cadastrado na Hotmart: não deixa navegar pra lugar nenhum
+          ev.preventDefault();
+          return;
+        }
+        trackInitiateCheckout(planKey);
+      });
+    }
+    wireCta('ctaEssencial', 'essencial');
+    wireCta('ctaCompleto', 'completo');
   }catch(e){}
 
   /* ================================================================
@@ -1065,6 +1230,44 @@ try{
         bonusList.appendChild(li);
       });
       bonusSection.hidden = false;
+    }
+  }catch(e){}
+
+  /* ================================================================
+     "O QUE VOCÊ RECEBE" + badge de resumos — só mostra número quando
+     CONFIG.counts estiver preenchido. Sem confirmação, usa texto genérico.
+     ================================================================ */
+  try{
+    var specMapas = document.getElementById('specMapas');
+    if(specMapas){
+      var nMapas = CONFIG.counts.totalMapasConfirmados;
+      specMapas.innerHTML = (typeof nMapas === 'number' && nMapas > 0)
+        ? '<strong>+' + nMapas + ' mapas mentais</strong> confirmados na biblioteca.'
+        : '<strong>Biblioteca de mapas mentais</strong> — quantidade exata em confirmação.';
+    }
+
+    var nResumos = CONFIG.counts.totalResumosConfirmados;
+    var resumosAcimaDe50 = (typeof nResumos === 'number' && nResumos > 50);
+    var specResumos = document.getElementById('specResumos');
+    if(specResumos){
+      specResumos.innerHTML = resumosAcimaDe50
+        ? '<strong>+50 resumos autorais de Medicina</strong>, produzidos durante a graduação.'
+        : '<strong>Uma biblioteca de resumos autorais</strong>, produzidos durante a graduação.';
+    }
+    var resumosBadge = document.getElementById('resumosBadgeChip');
+    if(resumosBadge){
+      resumosBadge.textContent = resumosAcimaDe50
+        ? '+50 RESUMOS AUTORAIS DE MEDICINA'
+        : 'UMA BIBLIOTECA DE RESUMOS AUTORAIS';
+    }
+
+    // Fichas tem a própria contagem — nunca herda o número ou o limiar dos resumos.
+    var nFichas = CONFIG.counts.totalFichasConfirmadas;
+    var specFichas = document.getElementById('specFichas');
+    if(specFichas){
+      specFichas.innerHTML = (typeof nFichas === 'number' && nFichas > 0)
+        ? '<strong>+' + nFichas + ' fichas-resumo</strong> visuais, organizadas por assunto.'
+        : '<strong>Fichas-resumo visuais</strong>, organizadas por assunto.';
     }
   }catch(e){}
 
@@ -1148,6 +1351,12 @@ try{
         if(closeBtn) closeBtn.focus();
       }
     }
+    // Abre o lightbox com uma lista própria (usado pela seção de demonstração,
+    // que tem suas 2 amostras fixas em vez da lista da aba ativa da galeria).
+    function openLightboxWith(list, index){
+      currentList = list;
+      openLightbox(index);
+    }
     function closeLightbox(){
       var lb = document.getElementById('lightbox');
       if(lb){ lb.hidden = true; document.body.style.overflow = ''; }
@@ -1180,6 +1389,25 @@ try{
     activeCategory = firstCat ? firstCat.id : 'mapas';
     renderTabs();
     renderGrid();
+
+    // Seção "Um mesmo assunto, diferentes formas de revisar" (Contracepção).
+    // Pra somar um 3º card (mapa mental autoral do mesmo assunto), acrescente
+    // um objeto aqui e duplique o <article id="demoCard2"> correspondente no HTML.
+    var DEMO_ITEMS = [
+      { src:"assets/resumo-autoral.png", title:"Resumo Completo — Contracepção", caption:"Para retomar explicações, conceitos e informações de maneira mais detalhada." },
+      { src:"assets/ficha-resumo.png", title:"Ficha-Resumo — Contracepção", caption:"Para consultar os principais pontos do assunto em uma única ficha visual." }
+    ];
+    DEMO_ITEMS.forEach(function(_, idx){
+      var card = document.getElementById('demoCard' + idx);
+      if(!card) return;
+      card.addEventListener('click', function(){ openLightboxWith(DEMO_ITEMS, idx); });
+      card.addEventListener('keydown', function(ev){
+        if(ev.key === 'Enter' || ev.key === ' '){
+          ev.preventDefault();
+          openLightboxWith(DEMO_ITEMS, idx);
+        }
+      });
+    });
   }catch(e){}
 
   /* ================================================================
