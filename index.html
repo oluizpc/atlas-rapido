@@ -3,8 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Kit de Mapas Mentais, Resumos Autorais e Fichas-Resumo para revisão rápida em Medicina.">
 <title>Atlas Rápido</title>
+<meta name="description" content="Mapas mentais, resumos autorais e fichas-resumo para organizar seus estudos de Medicina.">
+<!-- EDITE: troque pela URL real se o domínio mudar -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Atlas Rápido">
+<meta property="og:title" content="Atlas Rápido — Sua biblioteca de revisão médica">
+<meta property="og:description" content="Mapas mentais, resumos autorais e fichas-resumo para organizar seus estudos de Medicina.">
+<meta property="og:url" content="https://oluizpc.github.io/atlas-rapido/">
+<!-- EDITE: og:image — ainda não existe uma imagem de capa dedicada (1200x630). Pendência de lançamento. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
@@ -375,6 +383,12 @@
   .plan-feats li{font-size:.9rem;color:var(--on-surface-dim);display:flex;gap:10px;}
   .plan-feats li::before{content:"✓";color:var(--teal);font-weight:600;flex:0 0 auto;}
   .plan-cta{width:100%;}
+  .plan-cta[aria-disabled="true"]{opacity:.55;cursor:not-allowed;filter:saturate(.7);}
+  .plan-cta[aria-disabled="true"]:hover{transform:none;box-shadow:none;}
+  .checkout-pending{
+    margin-top:-6px;font-family:var(--ff-mono);font-size:.82rem;letter-spacing:.02em;
+    color:var(--on-surface-dimmer);text-align:center;
+  }
   .plans-note{margin-top:28px;font-family:var(--ff-mono);font-size:.78rem;color:var(--on-surface-dimmer);text-align:center;}
   @media (max-width:700px){ .plans-grid{grid-template-columns:1fr;max-width:440px;} .plan-featured{transform:none;} }
 
@@ -493,13 +507,13 @@ try{
 <header class="nav">
   <div class="container nav-inner">
     <a class="logo" href="#top">
-      <span class="logo-mark">MAPA<span class="accent">RÁPIDO</span></span>
-      <span class="logo-sub">MAPAS MENTAIS · MEDICINA</span>
+      <span class="logo-mark">ATLAS<span class="accent">RÁPIDO</span></span>
+      <span class="logo-sub">SUA BIBLIOTECA DE REVISÃO MÉDICA</span>
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#dentro">O kit</a></li>
-      <li><a href="#amostras">Amostras</a></li>
       <li><a href="#tres-formas">Como funciona</a></li>
+      <li><a href="#amostras">Amostras</a></li>
       <li><a href="#planos">Planos</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#planos" class="btn btn-primary">Ver planos</a></li>
@@ -518,7 +532,7 @@ try{
       <div class="hero-copy">
         <p class="eyebrow">Revisão de véspera · todas as grandes áreas</p>
         <h1>A faculdade te deu <em>seis anos</em> de matéria. A prova te dá <em>seis horas</em> pra revisar.</h1>
-        <p class="lede">O Kit de Mapas Mentais para Revisões Rápidas reúne mapas mentais, resumos autorais e fichas-resumo visuais — organizados pra ajudar você a revisar com mais clareza, não pra prometer que dá pra rever seis anos de curso numa noite.</p>
+        <p class="lede">Mapas mentais, resumos autorais e fichas-resumo para revisar assuntos de Medicina com mais organização e praticidade.</p>
         <div class="hero-actions">
           <!-- EDITE: o link real vem de CONFIG.plans no <script>, no final da página -->
           <a href="#planos" class="btn btn-primary" id="heroCta">Quero revisar com mais clareza →</a>
@@ -627,16 +641,16 @@ try{
           <span class="wp-num">02</span>
           <span class="wp-dot" aria-hidden="true"></span>
           <div class="wp-body">
-            <h3>Revisão em minutos, não em noites</h3>
-            <p>Cada mapa cabe numa página. Dá pra repassar uma especialidade inteira no intervalo entre dois pacientes ou duas aulas.</p>
+            <h3>Consulta rápida, não leitura longa</h3>
+            <p>Cada mapa cabe numa página só — fácil de abrir e consultar num intervalo entre dois pacientes ou duas aulas.</p>
           </div>
         </div>
         <div class="waypoint reveal">
           <span class="wp-num">03</span>
           <span class="wp-dot" aria-hidden="true"></span>
           <div class="wp-body">
-            <h3>Memória por imagem</h3>
-            <p>O cérebro lembra de posição, cor e forma muito antes de lembrar de frase. Os mapas usam isso a seu favor — não contra.</p>
+            <h3>Relação entre conceitos</h3>
+            <p>O formato visual mostra como diagnóstico, causa e conduta se conectam — uma relação que o texto corrido nem sempre deixa clara.</p>
           </div>
         </div>
         <div class="waypoint reveal">
@@ -644,7 +658,7 @@ try{
           <span class="wp-dot" aria-hidden="true"></span>
           <div class="wp-body">
             <h3>Pensado pra última hora</h3>
-            <p>A estrutura foi testada pra revisão de véspera — não pro primeiro contato com a matéria. É consulta rápida, não leitura longa.</p>
+            <p>A estrutura foi pensada pra revisão de véspera — não pro primeiro contato com a matéria.</p>
           </div>
         </div>
         <div class="waypoint reveal">
@@ -693,33 +707,6 @@ try{
       </ul>
     </div>
   </section>
-
-  <!-- ============ AMOSTRAS — galeria real com abas (página) ============ -->
-  <section class="section paper" id="amostras">
-    <div class="container">
-      <div class="amostras-head">
-        <p class="eyebrow">Veja antes de decidir</p>
-        <h2 class="section-title" style="max-width:38ch;">Amostras reais — mapas, resumos e fichas</h2>
-        <p class="lede" style="margin-top:12px;">Escolha uma categoria e veja páginas de verdade do material. Nada aqui é mockup inventado.</p>
-      </div>
-      <div class="gallery-tabs" id="galleryTabs" role="tablist" aria-label="Categorias de amostras"></div>
-      <div class="gallery-grid" id="galleryGrid"></div>
-      <p class="samples-note">Clique numa amostra pra ver em tamanho maior.</p>
-    </div>
-  </section>
-
-  <!-- Lightbox de amostras (reaproveitado por todas as categorias da galeria acima) -->
-  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Amostra ampliada">
-    <div class="lightbox-frame">
-      <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Fechar">×</button>
-      <img id="lightboxImg" src="" alt="">
-      <p class="lightbox-cap" id="lightboxCap"></p>
-      <div class="lightbox-nav">
-        <button type="button" id="lightboxPrev" aria-label="Amostra anterior">‹</button>
-        <button type="button" id="lightboxNext" aria-label="Próxima amostra">›</button>
-      </div>
-    </div>
-  </div>
 
   <!-- ============ TRÊS FORMAS DE REVISAR (página) ============ -->
   <section class="section paper" id="tres-formas">
@@ -777,6 +764,33 @@ try{
     </div>
   </section>
 
+  <!-- ============ AMOSTRAS — galeria real com abas (página) ============ -->
+  <section class="section paper" id="amostras">
+    <div class="container">
+      <div class="amostras-head">
+        <p class="eyebrow">Veja antes de decidir</p>
+        <h2 class="section-title" style="max-width:38ch;">Amostras reais — mapas, resumos e fichas</h2>
+        <p class="lede" style="margin-top:12px;">Escolha uma categoria e veja páginas de verdade do material. Nada aqui é mockup inventado.</p>
+      </div>
+      <div class="gallery-tabs" id="galleryTabs" role="tablist" aria-label="Categorias de amostras"></div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+      <p class="samples-note">Clique numa amostra pra ver em tamanho maior.</p>
+    </div>
+  </section>
+
+  <!-- Lightbox de amostras (reaproveitado por todas as categorias da galeria acima) -->
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Amostra ampliada">
+    <div class="lightbox-frame">
+      <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Fechar">×</button>
+      <img id="lightboxImg" src="" alt="">
+      <p class="lightbox-cap" id="lightboxCap"></p>
+      <div class="lightbox-nav">
+        <button type="button" id="lightboxPrev" aria-label="Amostra anterior">‹</button>
+        <button type="button" id="lightboxNext" aria-label="Próxima amostra">›</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ DEMONSTRAÇÃO: MESMO ASSUNTO, FORMATOS DIFERENTES ============ -->
   <section class="section paper" id="demonstracao">
     <div class="container">
@@ -796,7 +810,7 @@ try{
           </div>
           <div>
             <h3>Resumo Completo</h3>
-            <p class="content-desc">Para retomar explicações, conceitos e informações de maneira mais detalhada.</p>
+            <p class="content-desc">Explicações e conceitos organizados para uma consulta mais detalhada.</p>
           </div>
         </article>
         <article class="content-card clickable reveal" id="demoCard1" tabindex="0" role="button" aria-label="Ampliar: Ficha-Resumo de Contracepção">
@@ -805,7 +819,7 @@ try{
           </div>
           <div>
             <h3>Ficha-Resumo</h3>
-            <p class="content-desc">Para consultar os principais pontos do assunto em uma única ficha visual.</p>
+            <p class="content-desc">Os principais pontos condensados em uma ficha visual para consulta rápida.</p>
           </div>
         </article>
       </div>
@@ -826,7 +840,7 @@ try{
       <div class="reveal">
         <p class="eyebrow">Sobre o material</p>
         <h2 class="section-title" style="max-width:28ch;">Materiais que nasceram durante seis anos de Medicina.</h2>
-        <p class="origin-text" style="margin-top:18px;">Durante minha graduação em Medicina, fui construindo meus próprios resumos para organizar os estudos. Com o tempo, também desenvolvi fichas-resumo para condensar os assuntos e facilitar minhas revisões. Agora, reuni esses materiais em uma biblioteca digital para compartilhar essa forma de estudar.</p>
+        <p class="origin-text" style="margin-top:18px;">Durante minha graduação em Medicina, desenvolvi resumos para organizar meus estudos. A partir deles, também criei fichas-resumo com informações condensadas para facilitar minhas revisões. Agora, reuni esses materiais em uma biblioteca digital.</p>
       </div>
     </div>
   </section>
@@ -842,19 +856,19 @@ try{
         <div class="audience-card yes reveal">
           <h3>É pra quem</h3>
           <ul class="audience-list">
-            <li>Estuda Medicina e deseja complementar suas revisões.</li>
+            <li>Estuda Medicina.</li>
+            <li>Deseja complementar a rotina de revisão.</li>
             <li>Prefere materiais visuais e organizados.</li>
             <li>Quer consultar resumos e fichas por assunto.</li>
-            <li>Busca materiais digitais pra estudar no próprio ritmo.</li>
           </ul>
         </div>
         <div class="audience-card no reveal">
           <h3>Não é pra quem</h3>
           <ul class="audience-list">
-            <li>Procura substituir livros, aulas e materiais oficiais.</li>
-            <li>Espera aprovação garantida em provas ou residência.</li>
-            <li>Procura acompanhamento acadêmico individual.</li>
-            <li>Espera um curso completo com aulas e tutoria.</li>
+            <li>Procura substituir livros ou aulas.</li>
+            <li>Espera aprovação garantida.</li>
+            <li>Procura acompanhamento individual.</li>
+            <li>Espera um curso completo com aulas gravadas.</li>
           </ul>
         </div>
       </div>
@@ -904,7 +918,8 @@ try{
             <li>Acesso digital</li>
             <li>Garantia de 7 dias</li>
           </ul>
-          <a href="#" class="btn btn-ghost plan-cta" id="ctaEssencial">QUERO COMEÇAR A REVISAR</a>
+          <a href="#" class="btn btn-ghost plan-cta" id="ctaEssencial">QUERO O ESSENCIAL</a>
+          <p class="checkout-pending" id="checkoutPendingEssencial" hidden>Checkout em configuração — em breve disponível.</p>
         </article>
 
         <!-- EDITE: o link real vem de CONFIG.plans.completo.checkoutUrl, no <script> no final da página -->
@@ -922,12 +937,13 @@ try{
             <li data-flag="resumosAutorais">Resumos autorais produzidos durante seis anos de Medicina</li>
             <li data-flag="fichasResumo">Fichas-resumo visuais desenvolvidas a partir dos resumos</li>
             <li data-flag="mapasClinicosExtras">Mapas clínicos complementares</li>
-            <li data-flag="questoesProvas">Questões comentadas ou provas com distribuição autorizada, quando disponíveis</li>
-            <li data-flag="flashcards" data-flag-or="outrosBonus">Materiais extras de organização, quando disponíveis</li>
+            <li data-flag="questoesProvas">Questões comentadas e provas autorizadas, somente quando disponíveis</li>
+            <li data-flag="flashcards" data-flag-or="outrosBonus">Materiais adicionais de organização, somente quando disponíveis</li>
             <li>Acesso digital</li>
             <li>Garantia de 7 dias</li>
           </ul>
-          <a href="#" class="btn btn-primary plan-cta" id="ctaCompleto">QUERO O KIT COMPLETO</a>
+          <a href="#" class="btn btn-primary plan-cta" id="ctaCompleto">QUERO O COMPLETO</a>
+          <p class="checkout-pending" id="checkoutPendingCompleto" hidden>Checkout em configuração — em breve disponível.</p>
         </article>
       </div>
 
@@ -942,7 +958,7 @@ try{
             <tr data-flag="resumosAutorais"><td>Resumos autorais de Medicina</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr data-flag="fichasResumo"><td>Fichas-resumo visuais</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr data-flag="mapasClinicosExtras"><td>Mapas clínicos complementares</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="questoesProvas"><td>Questões comentadas / distribuição autorizada</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr data-flag="questoesProvas"><td>Questões comentadas / provas autorizadas</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr data-flag="flashcards" data-flag-or="outrosBonus"><td>Materiais extras de organização</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr><td>Acesso digital</td><td class="yes">✓</td><td class="yes">✓</td></tr>
             <tr><td>Garantia de 7 dias</td><td class="yes">✓</td><td class="yes">✓</td></tr>
@@ -1033,8 +1049,8 @@ try{
 <footer class="footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <span class="logo-mark">MAPA<span class="accent">RÁPIDO</span></span>
-      <p>Mapas mentais, resumos e fichas-resumo de revisão rápida, feitos pra quem não pode perder tempo.</p>
+      <span class="logo-mark">ATLAS<span class="accent">RÁPIDO</span></span>
+      <p>Mapas mentais, resumos autorais e fichas-resumo para organizar seus estudos de Medicina.</p>
     </div>
     <nav class="footer-links">
       <!-- EDITE: links reais -->
@@ -1083,9 +1099,13 @@ try{
     // EDITE: quando souber os números exatos, preencha aqui — nada mais precisa mudar.
     // null = ainda não confirmado (a página usa um texto genérico em vez de inventar número).
     counts: {
-      totalMapasConfirmados:   null,
-      totalResumosConfirmados: null,
-      totalFichasConfirmadas:  null
+      // O Essencial já tem 15 mapas confirmados — isso está fixo direto no texto
+      // do plano (não depende desta config). totalMapas aqui é o total da
+      // biblioteca AMPLIADA do Completo, que ainda não foi conferido.
+      totalMapas:    null,
+      totalResumos:  null,
+      totalFichas:   null,
+      totalQuestoes: null
     }
   };
 
@@ -1159,14 +1179,34 @@ try{
 
     // Só aponta o botão pro checkout real quando o link estiver preenchido.
     // Sem link configurado, o clique não navega pra lugar nenhum (ver bloco
-    // de rastreamento abaixo) — nunca manda ninguém pra um checkout errado.
-    var ctaE = document.getElementById('ctaEssencial');
-    if(ctaE && CONFIG.plans.essencial.checkoutUrl){
-      ctaE.href = CONFIG.plans.essencial.checkoutUrl;
+    // de rastreamento abaixo) — nunca manda ninguém pra um checkout errado —
+    // e o botão ganha um estado visível de "pendente" em vez de só falhar em silêncio.
+    function applyCheckoutState(ctaId, pendingId, url){
+      var cta = document.getElementById(ctaId);
+      var pending = document.getElementById(pendingId);
+      var configured = !!url;
+      if(cta){
+        if(configured){
+          cta.href = url;
+          cta.removeAttribute('aria-disabled');
+        } else {
+          cta.setAttribute('aria-disabled', 'true');
+        }
+      }
+      if(pending) pending.hidden = configured;
     }
-    var ctaC = document.getElementById('ctaCompleto');
-    if(ctaC && CONFIG.plans.completo.checkoutUrl){
-      ctaC.href = CONFIG.plans.completo.checkoutUrl;
+    applyCheckoutState('ctaEssencial', 'checkoutPendingEssencial', CONFIG.plans.essencial.checkoutUrl);
+    applyCheckoutState('ctaCompleto', 'checkoutPendingCompleto', CONFIG.plans.completo.checkoutUrl);
+
+    // Alerta de desenvolvimento: nunca os dois planos devem apontar pro mesmo
+    // checkout (preço diferente = produto diferente na Hotmart). Isso não
+    // altera nada na página, só avisa no console se alguém colar o link errado.
+    if(
+      CONFIG.plans.essencial.checkoutUrl &&
+      CONFIG.plans.completo.checkoutUrl &&
+      CONFIG.plans.essencial.checkoutUrl === CONFIG.plans.completo.checkoutUrl
+    ){
+      console.warn('[Atlas Rápido] CONFIG.plans.essencial.checkoutUrl e CONFIG.plans.completo.checkoutUrl estão iguais — confira se não foi colado o link errado em um dos planos.');
     }
 
     var diffCents = Math.round((CONFIG.plans.completo.price - CONFIG.plans.essencial.price) * 100);
@@ -1199,9 +1239,9 @@ try{
       var el = document.getElementById(id);
       if(!el) return;
       el.addEventListener('click', function(ev){
-        var configured = CONFIG.plans[planKey].checkoutUrl;
-        if(!configured){
+        if(el.getAttribute('aria-disabled') === 'true'){
           // link ainda não cadastrado na Hotmart: não deixa navegar pra lugar nenhum
+          // (o estado "pendente" já está visível no botão e no texto abaixo dele)
           ev.preventDefault();
           return;
         }
@@ -1240,35 +1280,39 @@ try{
   try{
     var specMapas = document.getElementById('specMapas');
     if(specMapas){
-      var nMapas = CONFIG.counts.totalMapasConfirmados;
+      var nMapas = CONFIG.counts.totalMapas;
       specMapas.innerHTML = (typeof nMapas === 'number' && nMapas > 0)
-        ? '<strong>+' + nMapas + ' mapas mentais</strong> confirmados na biblioteca.'
+        ? '<strong>+' + nMapas + ' mapas mentais</strong> confirmados na biblioteca ampliada.'
         : '<strong>Biblioteca de mapas mentais</strong> — quantidade exata em confirmação.';
     }
 
-    var nResumos = CONFIG.counts.totalResumosConfirmados;
+    var nResumos = CONFIG.counts.totalResumos;
     var resumosAcimaDe50 = (typeof nResumos === 'number' && nResumos > 50);
     var specResumos = document.getElementById('specResumos');
     if(specResumos){
       specResumos.innerHTML = resumosAcimaDe50
-        ? '<strong>+50 resumos autorais de Medicina</strong>, produzidos durante a graduação.'
-        : '<strong>Uma biblioteca de resumos autorais</strong>, produzidos durante a graduação.';
+        ? '<strong>+50 resumos autorais</strong>, produzidos durante a graduação.'
+        : '<strong>Biblioteca de resumos autorais</strong>, produzidos durante a graduação.';
     }
     var resumosBadge = document.getElementById('resumosBadgeChip');
     if(resumosBadge){
       resumosBadge.textContent = resumosAcimaDe50
-        ? '+50 RESUMOS AUTORAIS DE MEDICINA'
-        : 'UMA BIBLIOTECA DE RESUMOS AUTORAIS';
+        ? '+50 RESUMOS AUTORAIS'
+        : 'BIBLIOTECA DE RESUMOS AUTORAIS';
     }
 
     // Fichas tem a própria contagem — nunca herda o número ou o limiar dos resumos.
-    var nFichas = CONFIG.counts.totalFichasConfirmadas;
+    var nFichas = CONFIG.counts.totalFichas;
     var specFichas = document.getElementById('specFichas');
     if(specFichas){
       specFichas.innerHTML = (typeof nFichas === 'number' && nFichas > 0)
         ? '<strong>+' + nFichas + ' fichas-resumo</strong> visuais, organizadas por assunto.'
         : '<strong>Fichas-resumo visuais</strong>, organizadas por assunto.';
     }
+
+    // totalQuestoes fica preparado pra quando o banco de questões/provas for
+    // confirmado (ver FEATURE_FLAGS.questoesProvas) — hoje nada na página usa
+    // esse número ainda, porque o recurso está desligado por padrão.
   }catch(e){}
 
   /* ================================================================
