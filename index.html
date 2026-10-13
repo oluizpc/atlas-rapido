@@ -55,6 +55,9 @@
     --edge-soft:var(--line-soft);
     --edge-strong:rgba(246,240,228,.28);
     --accent:var(--gold);
+    /* Cor dos botões de compra (Completo) e dos destaques de oferta. */
+    --cta:#0F6B5B;
+    --cta-hover:#0B5548;
   }
   .section.paper{
     --surface:#E4D8BB;
@@ -128,6 +131,12 @@
   .btn-ghost{background:transparent;border-color:var(--edge-strong);color:var(--on-surface);}
   .btn-ghost:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px);}
   .btn-lg{padding:18px 36px;font-size:1.05rem;}
+  /* Botões de compra: Completo (cheio, verde) e Essencial (contorno, tinta escura).
+     Usados sempre sobre fundo claro (cards de plano). */
+  .btn-cta{background:var(--cta);color:#fff;box-shadow:0 10px 26px -12px rgba(15,107,91,.7);}
+  .btn-cta:hover{background:var(--cta-hover);transform:translateY(-2px);box-shadow:0 16px 32px -12px rgba(15,107,91,.8);}
+  .btn-outline{background:transparent;border:2px solid #15263B;color:#15263B;}
+  .btn-outline:hover{background:rgba(21,38,59,.07);transform:translateY(-2px);}
 
   /* ============ REVEAL ============ */
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
@@ -194,25 +203,37 @@
   .hero-trust li{font-family:var(--ff-mono);font-size:.78rem;color:var(--mist-dim);letter-spacing:.02em;}
   .hero-trust li::before{content:"✓ ";color:var(--teal);}
 
-  .hero-visual{position:relative;}
-  .hero-visual svg{width:100%;height:auto;}
-  .node-center{fill:var(--ink-700);stroke:var(--gold);stroke-width:2;}
-  .node{fill:var(--ink-800);stroke:var(--teal);stroke-width:1.6;}
-  .node-label{font-family:var(--ff-mono);font-size:13px;font-weight:600;fill:var(--paper);text-anchor:middle;dominant-baseline:middle;}
-  .center-label{font-family:var(--ff-mono);font-size:11px;font-weight:600;fill:var(--gold-soft);text-anchor:middle;dominant-baseline:middle;letter-spacing:.04em;}
-  .spoke{stroke:var(--gold);stroke-width:1.2;stroke-dasharray:4 5;opacity:.55;}
-  .spoke.teal{stroke:var(--teal);}
-  .cross-line{stroke:var(--mist-dim);stroke-width:1;stroke-dasharray:2 5;opacity:.35;}
-  @media (prefers-reduced-motion: no-preference){
-    .node, .node-center{animation:pulse 4.5s ease-in-out infinite;transform-origin:center;transform-box:fill-box;}
-    .node:nth-of-type(2){animation-delay:.3s;}
-    .node:nth-of-type(3){animation-delay:.6s;}
-    .node:nth-of-type(4){animation-delay:.9s;}
-    .node:nth-of-type(5){animation-delay:1.2s;}
-    .node:nth-of-type(6){animation-delay:1.5s;}
+  .hero-offer{margin-top:22px;padding-left:16px;border-left:3px solid var(--gold);}
+  .hero-offer-main{font-family:var(--ff-display);font-weight:600;color:var(--paper);font-size:clamp(1.2rem,1rem + 1vw,1.6rem);line-height:1.25;text-wrap:balance;}
+  .hero-offer-main strong{color:var(--gold);font-weight:700;white-space:nowrap;}
+  .hero-offer-meta{margin-top:8px;font-family:var(--ff-mono);font-size:.8rem;letter-spacing:.02em;color:var(--mist);}
+
+  /* Amostra real em moldura de página, levemente inclinada. */
+  .hero-visual{position:relative;margin:0;width:100%;max-width:400px;justify-self:center;}
+  .hero-page{
+    background:#fff;padding:10px;border-radius:6px;border:1px solid rgba(246,240,228,.55);
+    box-shadow:0 34px 70px -24px rgba(0,0,0,.75),0 2px 0 rgba(246,240,228,.18);
+    transform:rotate(2.5deg);
   }
-  @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
-  @media (max-width:880px){ .hero-inner{grid-template-columns:1fr;} .hero-visual{max-width:360px;margin-inline:auto;} }
+  .hero-page img{display:block;width:100%;height:auto;border-radius:2px;}
+  .hero-visual figcaption{margin-top:22px;text-align:center;font-family:var(--ff-mono);font-size:.78rem;letter-spacing:.02em;color:var(--mist);}
+  @media (max-width:880px){
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-visual{max-width:300px;margin-inline:auto;}
+  }
+  /* No celular, o botão principal precisa caber na primeira tela: menos respiro
+     no topo e a linha de formatos (que repete o subtítulo) sai. */
+  @media (max-width:600px){
+    .hero{padding-top:92px;}
+    .hero .eyebrow{display:none;}
+    .hero h1{font-size:1.9rem;}
+    .hero .lede{margin-top:14px;font-size:1rem;line-height:1.6;}
+    .hero-formats{display:none;}
+    .hero-offer{margin-top:16px;padding-left:12px;}
+    .hero-offer-meta{font-size:.66rem;letter-spacing:0;}
+    .hero-actions{margin-top:20px;}
+    .hero-actions .btn{width:100%;}
+  }
 
   /* ============ PROBLEMA (noite) ============ */
   .problema-inner{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,6vw,56px);align-items:start;}
@@ -397,8 +418,10 @@
   }
   .plan-featured{
     background:linear-gradient(165deg,var(--surface-raised-2),var(--surface-raised));
-    border-color:var(--gold);transform:translateY(-10px);box-shadow:var(--shadow-deep);
+    border:2px solid var(--cta);transform:translateY(-10px);box-shadow:var(--shadow-deep);
   }
+  .plan-featured .plan-price .new{font-size:3rem;}
+  .plan-featured .plan-price .new small{font-size:1.2rem;}
   .plan-tag{
     position:absolute;top:-13px;left:28px;background:var(--gold);color:var(--ink-900);
     font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;
@@ -420,7 +443,8 @@
     color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:5px 12px;font-weight:600;
   }
   .text-accent{color:var(--accent);}
-  .plan-cta{width:100%;}
+  .plan-cta{width:100%;flex-wrap:wrap;gap:0 .35em;white-space:normal;text-align:center;padding-inline:18px;}
+  .plan-cta .nowrap{white-space:nowrap;}
   .plan-cta[aria-disabled="true"]{opacity:.55;cursor:not-allowed;filter:saturate(.7);}
   .plan-cta[aria-disabled="true"]:hover{transform:none;box-shadow:none;}
   .checkout-pending{
@@ -452,11 +476,11 @@
   @media (max-width:480px){ .compare-table{font-size:.8rem;} .compare-table th,.compare-table td{padding:9px 7px;} }
   .compare-callout-wrap{text-align:center;margin-top:20px;}
   .compare-callout{
-    display:inline-block;font-size:.92rem;color:var(--on-surface);background:var(--surface-raised);
-    border:1px solid var(--accent);border-radius:999px;padding:10px 22px;
+    display:inline-block;max-width:62ch;font-size:1.08rem;font-weight:700;line-height:1.5;color:var(--on-surface);
+    background:rgba(15,107,91,.13);border:2px solid var(--cta);border-radius:999px;padding:14px 28px;
   }
-  .compare-callout strong{color:var(--accent);}
-  @media (max-width:600px){ .compare-callout{border-radius:18px;padding:12px 18px;} }
+  .compare-callout strong{color:var(--cta);font-weight:700;}
+  @media (max-width:760px){ .compare-callout{border-radius:18px;padding:14px 18px;font-size:1rem;} }
 
   /* ============ BÔNUS (página · data-driven, ver BONUS_ITEMS) ============ */
   .bonus-inner{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,56px);align-items:start;}
@@ -503,6 +527,19 @@
     font-family:var(--ff-display);font-weight:600;color:var(--paper);
     font-size:clamp(1.8rem,1.4rem + 2vw,2.8rem);line-height:1.18;text-wrap:balance;max-width:24ch;
   }
+  .final-plans{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;width:100%;max-width:720px;}
+  .final-plan{
+    background:#EFE6CC;border:1px solid rgba(21,38,59,.16);border-radius:18px;padding:22px;
+    display:flex;flex-direction:column;gap:12px;text-align:center;
+  }
+  .final-plan.is-featured{border:2px solid var(--cta);}
+  .final-plan h3{font-family:var(--ff-display);font-weight:600;font-size:1.2rem;color:#15263B;}
+  .final-plan h3 span{white-space:nowrap;}
+  .final-plan-desc{font-size:.9rem;color:#3C5166;min-height:1.4em;}
+  .final-plan .plan-cta{margin-top:auto;}
+  .final-plan .checkout-pending{margin-top:0;color:#42566A;}
+  .final-note{font-family:var(--ff-mono);font-size:.8rem;letter-spacing:.02em;color:var(--mist);}
+  @media (max-width:640px){ .final-plans{grid-template-columns:1fr;max-width:440px;} .final-plan-desc:empty{display:none;} }
   .footer{border-top:1px solid var(--line-soft);padding-block:48px;background:var(--ink-900);}
   .footer-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px;}
   .footer-brand .logo-mark{font-size:1.15rem;}
@@ -515,15 +552,28 @@
   @media (prefers-reduced-motion: no-preference){ .compass{animation:spin 24s linear infinite;} }
   @keyframes spin{to{transform:rotate(360deg);}}
 
-  /* ============ CTA MÓVEL DISCRETO ============ */
-  .mobile-cta{
-    display:none;position:fixed;left:0;right:0;bottom:0;z-index:40;
-    padding:12px clamp(16px,5vw,24px);padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));
-    background:rgba(10,26,43,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    border-top:1px solid var(--line-soft);
+  /* ============ BARRA FIXA NO CELULAR (até 768px) ============
+     Aparece depois que o hero sai da tela e some enquanto #planos estiver visível
+     (a classe .is-visible é ligada pelo <script> no final da página). */
+  .mobile-bar{display:none;}
+  @media (max-width:768px){
+    .mobile-bar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      position:fixed;left:0;right:0;bottom:0;z-index:40;box-sizing:content-box;
+      height:47px;padding:8px clamp(14px,4vw,20px); /* 47 + 16 de padding + 1 de borda = 64px */
+      padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));
+      background:rgba(10,26,43,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border-top:1px solid var(--line-soft);
+      transform:translateY(100%);visibility:hidden;
+      transition:transform .3s ease,visibility 0s linear .3s;
+    }
+    .mobile-bar.is-visible{transform:none;visibility:visible;transition:transform .3s ease,visibility 0s;}
+    .mobile-bar p{font-size:.86rem;line-height:1.25;color:var(--paper);}
+    .mobile-bar p strong{color:var(--gold);font-weight:600;white-space:nowrap;}
+    .mobile-bar .btn{padding:10px 18px;font-size:.84rem;flex:0 0 auto;}
+    body{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px));}
   }
-  .mobile-cta a{width:100%;padding-block:12px;}
-  @media (max-width:880px){ .mobile-cta{display:block;} body{padding-bottom:78px;} }
+  @media (max-width:768px) and (prefers-reduced-motion: reduce){ .mobile-bar,.mobile-bar.is-visible{transition:none;} }
 </style>
 </head>
 <body>
@@ -582,9 +632,14 @@ try{
              O "+140" é texto fixo: se os totais mudarem, confira se ele continua verdadeiro. -->
         <p class="lede">+140 materiais de revisão (<span data-count="totalMapas">+65</span> mapas, <span data-count="totalResumos">+30</span> resumos e <span data-count="totalFichas">+50</span> fichas) numa biblioteca digital para complementar seus estudos.</p>
         <p class="hero-formats">Mapas para visualizar. Resumos para aprofundar. Fichas para consultar.</p>
+        <!-- EDITE: o preço vem de CONFIG.plans.essencial.price (no <script>, no final da página) -->
+        <div class="hero-offer">
+          <p class="hero-offer-main">Sua biblioteca de revisão médica a partir de <strong>R$ <span data-price="essencial">17,90</span></strong></p>
+          <p class="hero-offer-meta">PDF digital · Pagamento único · Acesso vitalício</p>
+        </div>
         <div class="hero-actions">
           <!-- EDITE: o link real vem de CONFIG.plans no <script>, no final da página -->
-          <a href="#planos" class="btn btn-primary" id="heroCta">CONHECER O MEDRESUMO COMPLETO</a>
+          <a href="#planos" class="btn btn-primary" id="heroCta">QUERO ACESSAR OS MATERIAIS</a>
           <a href="#demonstracao" class="btn btn-ghost">VER AMOSTRAS REAIS</a>
         </div>
         <ul class="hero-trust">
@@ -593,34 +648,13 @@ try{
           <li>Acesso <strong class="text-accent">vitalício</strong> e imediato após a compra</li>
         </ul>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <svg viewBox="0 0 400 400" role="img" aria-label="Diagrama de mapa mental conectando condições clínicas">
-          <line class="cross-line" x1="350" y1="200" x2="125" y2="330"></line>
-          <line class="cross-line" x1="275" y1="70" x2="275" y2="330"></line>
-          <line class="cross-line" x1="50" y1="200" x2="125" y2="70"></line>
-          <line class="spoke" x1="200" y1="200" x2="350" y2="200"></line>
-          <line class="spoke teal" x1="200" y1="200" x2="275" y2="330"></line>
-          <line class="spoke" x1="200" y1="200" x2="125" y2="330"></line>
-          <line class="spoke teal" x1="200" y1="200" x2="50" y2="200"></line>
-          <line class="spoke" x1="200" y1="200" x2="125" y2="70"></line>
-          <line class="spoke teal" x1="200" y1="200" x2="275" y2="70"></line>
-          <circle class="node" cx="350" cy="200" r="36"></circle>
-          <text class="node-label" x="350" y="201">ICC</text>
-          <circle class="node" cx="275" cy="330" r="36"></circle>
-          <text class="node-label" x="275" y="331">IAM</text>
-          <circle class="node" cx="125" cy="330" r="36"></circle>
-          <text class="node-label" x="125" y="331">DM2</text>
-          <circle class="node" cx="50" cy="200" r="36"></circle>
-          <text class="node-label" x="50" y="201">DPOC</text>
-          <circle class="node" cx="125" cy="70" r="36"></circle>
-          <text class="node-label" x="125" y="71">AVC</text>
-          <circle class="node" cx="275" cy="70" r="36"></circle>
-          <text class="node-label" x="275" y="71">HAS</text>
-          <circle class="node-center" cx="200" cy="200" r="48"></circle>
-          <text class="center-label" x="200" y="195">REVISÃO</text>
-          <text class="center-label" x="200" y="210">RÁPIDA</text>
-        </svg>
-      </div>
+      <!-- EDITE: amostra real exibida na capa. Pra trocar, mude o src, o alt e a legenda juntos. -->
+      <figure class="hero-visual">
+        <div class="hero-page">
+          <img src="assets/bonus01-pancreatite-aguda.png" alt="Página real de um mapa mental do MedResumo sobre pancreatite aguda" width="1785" height="2526" decoding="async">
+        </div>
+        <figcaption>Amostra real: mapa de Pancreatite aguda</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -634,7 +668,7 @@ try{
       </div>
       <div class="pain-grid">
         <div class="pain-card reveal">
-          <p><strong>A véspera virou madrugada.</strong> Grupo de WhatsApp lotado de prints de apostila, ninguém sabe por onde começar, e a prova é em 9 horas.</p>
+          <p><strong>A noite antes da prova vira maratona.</strong> Grupo de WhatsApp lotado de prints de apostila, ninguém sabe por onde começar, e a prova é em 9 horas.</p>
         </div>
         <div class="pain-card reveal">
           <p><strong>O texto corrido não cabe no tempo que você tem.</strong> Reler 40 páginas de clínica médica numa noite não é revisão — é desespero com cronômetro.</p>
@@ -775,7 +809,7 @@ try{
   <section class="section paper" id="tres-formas">
     <div class="container">
       <div class="content-head">
-        <p class="eyebrow">Exclusivo do MedResumo Completo</p>
+        <p class="eyebrow">Os três formatos do MedResumo</p>
         <h2 class="section-title" style="max-width:40ch;">Não é apenas um conjunto de PDFs. É uma forma mais organizada de revisar Medicina.</h2>
         <p class="lede" style="margin-top:16px;">Conheça os diferentes materiais que fazem parte do MedResumo Completo e como cada um pode complementar sua rotina de estudos.</p>
       </div>
@@ -1005,7 +1039,7 @@ try{
             <li>Acesso digital</li>
             <li>Garantia de 7 dias</li>
           </ul>
-          <a href="#" class="btn btn-ghost plan-cta" id="ctaEssencial">QUERO O ESSENCIAL</a>
+          <a href="#" class="btn btn-outline plan-cta" id="ctaEssencial">QUERO O ESSENCIAL — <span class="nowrap">R$ <span data-price="essencial">17,90</span></span></a>
           <p class="checkout-pending" id="checkoutPendingEssencial" hidden>Checkout em configuração — em breve disponível.</p>
         </article>
 
@@ -1020,7 +1054,6 @@ try{
           </div>
           <span class="lifetime-badge">Acesso vitalício</span>
           <ul class="plan-feats">
-            <li>Tudo do Essencial</li>
             <li data-flag="bibliotecaAmpliada"><span><span data-count="totalMapas" data-count-fallback="Biblioteca ampliada de">+65</span> mapas mentais</span></li>
             <li data-flag="resumosAutorais"><span><span data-count="totalResumos" data-count-fallback="Biblioteca de">+30</span> resumos autorais produzidos durante seis anos de Medicina</span></li>
             <li data-flag="fichasResumo"><span><span data-count="totalFichas" data-count-fallback="Biblioteca de">+50</span> fichas-resumo visuais, de várias especialidades</span></li>
@@ -1032,7 +1065,7 @@ try{
             <li>Garantia de 7 dias</li>
             <li data-flag="orderBumps">Pacotes extras por área disponíveis no checkout</li>
           </ul>
-          <a href="#" class="btn btn-primary plan-cta" id="ctaCompleto">QUERO O COMPLETO</a>
+          <a href="#" class="btn btn-cta plan-cta" id="ctaCompleto">QUERO O COMPLETO — <span class="nowrap">R$ <span data-price="completo">37,90</span></span></a>
           <p class="checkout-pending" id="checkoutPendingCompleto" hidden>Checkout em configuração — em breve disponível.</p>
         </article>
       </div>
@@ -1132,7 +1165,23 @@ try{
     </div>
     <div class="container cta-final-inner">
       <h2>Sua próxima prova já tem data. Sua revisão pode começar hoje.</h2>
-      <a href="#planos" class="btn btn-primary btn-lg">Ver os dois planos</a>
+      <!-- EDITE: preços vêm de CONFIG.plans e os links de CONFIG.plans.*.checkoutUrl (no <script>,
+           no final da página) — os botões abaixo seguem a mesma lógica dos botões de #planos. -->
+      <div class="final-plans">
+        <article class="final-plan">
+          <h3>Essencial — <span>R$ <span data-price="essencial">17,90</span></span></h3>
+          <p class="final-plan-desc"></p>
+          <a href="#" class="btn btn-outline plan-cta" id="ctaFinalEssencial">QUERO O ESSENCIAL</a>
+          <p class="checkout-pending" id="checkoutPendingFinalEssencial" hidden>Checkout em configuração — em breve disponível.</p>
+        </article>
+        <article class="final-plan is-featured">
+          <h3>Completo — <span>R$ <span data-price="completo">37,90</span></span></h3>
+          <p class="final-plan-desc"><span data-count="totalMapas">+65</span> mapas, <span data-count="totalResumos">+30</span> resumos, <span data-count="totalFichas">+50</span> fichas</p>
+          <a href="#" class="btn btn-cta plan-cta" id="ctaFinalCompleto">QUERO O COMPLETO</a>
+          <p class="checkout-pending" id="checkoutPendingFinalCompleto" hidden>Checkout em configuração — em breve disponível.</p>
+        </article>
+      </div>
+      <p class="final-note">Produto digital · Pagamento único · Garantia de 7 dias</p>
     </div>
   </section>
 </main>
@@ -1167,9 +1216,11 @@ try{
   </div>
 </footer>
 
-<!-- ============ CTA MÓVEL DISCRETO ============ -->
-<div class="mobile-cta">
-  <a href="#planos" class="btn btn-primary">Ver planos e comparar</a>
+<!-- ============ BARRA FIXA NO CELULAR ============ -->
+<!-- EDITE: o preço vem de CONFIG.plans.essencial.price (no <script> abaixo) -->
+<div class="mobile-bar" id="mobileBar">
+  <p>Kits a partir de <strong>R$ <span data-price="essencial">17,90</span></strong></p>
+  <a href="#planos" class="btn btn-primary">VER PLANOS</a>
 </div>
 
 <script>
@@ -1350,6 +1401,12 @@ try{
     if(priceE) priceE.innerHTML = '<small>R$</small>' + formatBRL(CONFIG.plans.essencial.price);
     var priceC = document.getElementById('priceCompleto');
     if(priceC) priceC.innerHTML = '<small>R$</small>' + formatBRL(CONFIG.plans.completo.price);
+    // Qualquer elemento com data-price="essencial|completo" recebe o preço do plano
+    // (hero, textos dos botões, seção final e barra fixa do celular).
+    document.querySelectorAll('[data-price]').forEach(function(el){
+      var plan = CONFIG.plans[el.getAttribute('data-price')];
+      if(plan) el.textContent = formatBRL(plan.price);
+    });
 
     // Só aponta o botão pro checkout real quando o link estiver preenchido.
     // Sem link configurado, o clique não navega pra lugar nenhum (ver bloco
@@ -1371,6 +1428,9 @@ try{
     }
     applyCheckoutState('ctaEssencial', 'checkoutPendingEssencial', CONFIG.plans.essencial.checkoutUrl);
     applyCheckoutState('ctaCompleto', 'checkoutPendingCompleto', CONFIG.plans.completo.checkoutUrl);
+    // Botões da seção final: mesmo link e mesmo estado "pendente" dos botões de #planos.
+    applyCheckoutState('ctaFinalEssencial', 'checkoutPendingFinalEssencial', CONFIG.plans.essencial.checkoutUrl);
+    applyCheckoutState('ctaFinalCompleto', 'checkoutPendingFinalCompleto', CONFIG.plans.completo.checkoutUrl);
 
     // Alerta de desenvolvimento: nunca os dois planos devem apontar pro mesmo
     // checkout (preço diferente = produto diferente na Hotmart). Isso não
@@ -1430,6 +1490,8 @@ try{
     }
     wireCta('ctaEssencial', 'essencial');
     wireCta('ctaCompleto', 'completo');
+    wireCta('ctaFinalEssencial', 'essencial');
+    wireCta('ctaFinalCompleto', 'completo');
   }catch(e){}
 
   /* ================================================================
@@ -1805,6 +1867,42 @@ try{
       window.addEventListener('scroll', onScroll, {passive:true});
       window.addEventListener('resize', onScroll);
       updateProgress();
+    }
+  }catch(e){}
+
+  /* ================================================================
+     BARRA FIXA NO CELULAR — aparece depois que o hero sai da tela e some
+     enquanto a seção #planos (ou a seção final, que tem botões próprios) estiver visível. O CSS só exibe até 768px.
+     ================================================================ */
+  try{
+    var mobileBar = document.getElementById('mobileBar');
+    var barHero = document.getElementById('top');
+    var barPlanos = document.getElementById('planos');
+    var barFinal = document.querySelector('.cta-final');
+    if(mobileBar && barHero && barPlanos){
+      var barTicking = false;
+      function updateMobileBar(){
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var heroFora = barHero.getBoundingClientRect().bottom <= 0;
+        var p = barPlanos.getBoundingClientRect();
+        var planosVisivel = p.top < vh && p.bottom > 0;
+        // A seção final tem os próprios botões de compra: a barra também sai da frente deles.
+        var fr = barFinal ? barFinal.getBoundingClientRect() : null;
+        var finalVisivel = !!fr && fr.top < vh - 80 && fr.bottom > 0;
+        var show = heroFora && !planosVisivel && !finalVisivel;
+        mobileBar.classList.toggle('is-visible', show);
+        if(show){ mobileBar.removeAttribute('aria-hidden'); } else { mobileBar.setAttribute('aria-hidden', 'true'); }
+        barTicking = false;
+      }
+      function onBarScroll(){
+        if(!barTicking){
+          window.requestAnimationFrame(updateMobileBar);
+          barTicking = true;
+        }
+      }
+      window.addEventListener('scroll', onBarScroll, {passive:true});
+      window.addEventListener('resize', onBarScroll);
+      updateMobileBar();
     }
   }catch(e){}
 })();
