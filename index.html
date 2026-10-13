@@ -196,12 +196,8 @@
   }
   .hero h1 em{font-style:italic;color:var(--gold);}
   .hero .lede{margin-top:20px;font-size:1.1rem;color:var(--mist);}
-  .hero-formats{margin-top:14px;font-family:var(--ff-mono);font-size:.88rem;letter-spacing:.02em;color:var(--gold-soft);}
   .hero-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px;}
   @media (max-width:360px){ .hero-actions .btn{white-space:normal;text-align:center;} }
-  .hero-trust{display:flex;flex-wrap:wrap;gap:22px;margin-top:34px;}
-  .hero-trust li{font-family:var(--ff-mono);font-size:.78rem;color:var(--mist-dim);letter-spacing:.02em;}
-  .hero-trust li::before{content:"✓ ";color:var(--teal);}
 
   .hero-offer{margin-top:22px;padding-left:16px;border-left:3px solid var(--gold);}
   .hero-offer-main{font-family:var(--ff-display);font-weight:600;color:var(--paper);font-size:clamp(1.2rem,1rem + 1vw,1.6rem);line-height:1.25;text-wrap:balance;}
@@ -221,14 +217,12 @@
     .hero-inner{grid-template-columns:1fr;}
     .hero-visual{max-width:300px;margin-inline:auto;}
   }
-  /* No celular, o botão principal precisa caber na primeira tela: menos respiro
-     no topo e a linha de formatos (que repete o subtítulo) sai. */
+  /* No celular, o botão principal precisa caber na primeira tela: menos respiro no topo. */
   @media (max-width:600px){
     .hero{padding-top:92px;}
     .hero .eyebrow{display:none;}
     .hero h1{font-size:1.9rem;}
     .hero .lede{margin-top:14px;font-size:1rem;line-height:1.6;}
-    .hero-formats{display:none;}
     .hero-offer{margin-top:16px;padding-left:12px;}
     .hero-offer-meta{font-size:.66rem;letter-spacing:0;}
     .hero-actions{margin-top:20px;}
@@ -258,44 +252,20 @@
   .tempos-note{margin-top:26px;font-family:var(--ff-mono);font-size:.8rem;color:var(--mist-dim);}
   @media (max-width:700px){ .tempos-grid{grid-template-columns:1fr;} }
 
-  /* ============ ROTA / BENEFÍCIOS (noite) ============ */
-  .rota-head{max-width:46ch;margin-bottom:48px;}
-  .waypoints{position:relative;padding-left:52px;--progress:0;}
-  .route-line{position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line);border-radius:2px;overflow:hidden;}
-  .route-line::after{
-    content:"";position:absolute;left:0;top:0;width:100%;
-    height:calc(100% * var(--progress,1));
-    background:linear-gradient(180deg,var(--teal),var(--gold));
-    transition:height .12s linear;
-  }
-  .waypoint{position:relative;padding-block:22px;display:flex;gap:26px;}
-  .waypoint:first-child{padding-top:2px;}
-  .wp-dot{position:absolute;left:-52px;top:28px;width:16px;height:16px;border-radius:50%;background:var(--ink-900);border:2px solid var(--gold);z-index:1;}
-  .wp-num{font-family:var(--ff-mono);font-size:.82rem;color:var(--mist-dim);min-width:32px;padding-top:3px;}
-  .wp-body h3{font-family:var(--ff-display);font-weight:600;color:var(--paper);font-size:1.18rem;margin-bottom:6px;}
-  .wp-body p{font-size:.95rem;color:var(--mist);max-width:56ch;}
-  @media (max-width:600px){ .waypoints{padding-left:40px;} .wp-dot{left:-40px;} }
-
-  /* ============ DENTRO DO KIT (abre a página) ============ */
-  .dentro{background-image:
+  /* ============ PRIMEIRA SEÇÃO CLARA (abre a página) + etiquetas de especialidade ============ */
+  .page-open{background-image:
       repeating-linear-gradient(0deg, transparent 0 27px, var(--edge-soft) 27px 28px),
       repeating-linear-gradient(90deg, transparent 0 27px, var(--edge-soft) 27px 28px);
       background-color:var(--surface);
   }
-  .dentro-inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,56px);align-items:start;}
   .chapters{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
   .chapter-tag{
     font-family:var(--ff-mono);font-size:.78rem;color:var(--on-surface);
     border:1px solid var(--edge);border-radius:999px;padding:7px 16px;background:var(--surface-raised-2);
   }
-  .specs-list{display:flex;flex-direction:column;gap:16px;}
-  .specs-list li{display:flex;gap:14px;align-items:flex-start;font-size:.96rem;color:var(--on-surface-dim);}
-  .specs-list li::before{content:"";flex:0 0 auto;width:8px;height:8px;margin-top:7px;background:var(--teal);border-radius:50%;}
-  .specs-list li strong{color:var(--on-surface);font-weight:600;}
-  @media (max-width:880px){ .dentro-inner{grid-template-columns:1fr;} }
 
   /* Cobertura por especialidade (opcional, ver FEATURE_FLAGS.coberturaPorArea) */
-  .coverage{grid-column:1 / -1;}
+  .coverage{margin-top:28px;}
   .coverage h3{font-family:var(--ff-display);font-weight:600;color:var(--on-surface);font-size:1.2rem;margin-bottom:14px;}
   .coverage-wrap{overflow-x:auto;}
   .coverage-table{width:100%;border-collapse:collapse;min-width:280px;font-size:.92rem;}
@@ -476,11 +446,15 @@
   @media (max-width:480px){ .compare-table{font-size:.8rem;} .compare-table th,.compare-table td{padding:9px 7px;} }
   .compare-callout-wrap{text-align:center;margin-top:20px;}
   .compare-callout{
-    display:inline-block;max-width:62ch;font-size:1.08rem;font-weight:700;line-height:1.5;color:var(--on-surface);
-    background:rgba(15,107,91,.13);border:2px solid var(--cta);border-radius:999px;padding:14px 28px;
+    display:inline-block;max-width:66ch;color:var(--on-surface);
+    background:rgba(15,107,91,.13);border:2px solid var(--cta);border-radius:18px;padding:18px 28px;
   }
-  .compare-callout strong{color:var(--cta);font-weight:700;}
-  @media (max-width:760px){ .compare-callout{border-radius:18px;padding:14px 18px;font-size:1rem;} }
+  .compare-callout-title{font-size:1.12rem;font-weight:700;line-height:1.4;text-wrap:balance;}
+  .compare-callout-title strong{color:var(--cta);font-weight:700;white-space:nowrap;}
+  .compare-callout-text{margin-top:8px;font-size:.95rem;line-height:1.6;color:var(--on-surface-dim);}
+  @media (max-width:760px){ .compare-callout{padding:16px 18px;} .compare-callout-title{font-size:1.04rem;} }
+  .plans-specialties{margin-top:22px;font-size:.92rem;line-height:1.6;color:var(--on-surface-dim);}
+  .plans-specialties strong{color:var(--on-surface);font-weight:600;}
 
   /* ============ BÔNUS (página · data-driven, ver BONUS_ITEMS) ============ */
   .bonus-inner{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,56px);align-items:start;}
@@ -607,8 +581,8 @@ try{
       <span class="logo-sub">SUA BIBLIOTECA DE REVISÃO MÉDICA</span>
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#dentro">O kit</a></li>
-      <li><a href="#tres-formas">Como funciona</a></li>
+      <li><a href="#tres-formas">O kit</a></li>
+      <li><a href="#demonstracao">Como funciona</a></li>
       <li><a href="#amostras">Amostras</a></li>
       <li><a href="#planos">Planos</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -631,7 +605,6 @@ try{
         <!-- EDITE: os números entre parênteses vêm de CONFIG.counts (no <script>, no final da página).
              O "+140" é texto fixo: se os totais mudarem, confira se ele continua verdadeiro. -->
         <p class="lede">+140 materiais de revisão (<span data-count="totalMapas">+65</span> mapas, <span data-count="totalResumos">+30</span> resumos e <span data-count="totalFichas">+50</span> fichas) numa biblioteca digital para complementar seus estudos.</p>
-        <p class="hero-formats">Mapas para visualizar. Resumos para aprofundar. Fichas para consultar.</p>
         <!-- EDITE: o preço vem de CONFIG.plans.essencial.price (no <script>, no final da página) -->
         <div class="hero-offer">
           <p class="hero-offer-main">Sua biblioteca de revisão médica a partir de <strong>R$ <span data-price="essencial">17,90</span></strong></p>
@@ -642,11 +615,6 @@ try{
           <a href="#planos" class="btn btn-primary" id="heroCta">QUERO ACESSAR OS MATERIAIS</a>
           <a href="#demonstracao" class="btn btn-ghost">VER AMOSTRAS REAIS</a>
         </div>
-        <ul class="hero-trust">
-          <li>PDF em alta resolução</li>
-          <li data-flag="resumosAutorais">Resumos autorais e fichas-resumo no MedResumo Completo</li>
-          <li>Acesso <strong class="text-accent">vitalício</strong> e imediato após a compra</li>
-        </ul>
       </div>
       <!-- EDITE: amostra real exibida na capa. Pra trocar, mude o src, o alt e a legenda juntos. -->
       <figure class="hero-visual">
@@ -703,68 +671,15 @@ try{
     </div>
   </section>
 
-  <!-- ============ ROTA / BENEFÍCIOS (noite) ============ -->
-  <section class="section" id="rota">
-    <div class="container">
-      <div class="rota-head">
-        <p class="eyebrow">A rota</p>
-        <h2 class="section-title" style="max-width:28ch;">O caminho mais curto entre abrir o PDF e lembrar na prova</h2>
-      </div>
-      <div class="waypoints" id="waypoints">
-        <div class="route-line" aria-hidden="true"></div>
-        <div class="waypoint reveal">
-          <span class="wp-num">01</span>
-          <span class="wp-dot" aria-hidden="true"></span>
-          <div class="wp-body">
-            <h3>Conexões visíveis</h3>
-            <p>Veja de cara como diagnóstico, fisiopatologia e conduta se encaixam — em vez de decorar blocos de texto soltos que não se conversam.</p>
-          </div>
-        </div>
-        <div class="waypoint reveal">
-          <span class="wp-num">02</span>
-          <span class="wp-dot" aria-hidden="true"></span>
-          <div class="wp-body">
-            <h3>Consulta rápida, não leitura longa</h3>
-            <p>Cada mapa cabe numa página só — fácil de abrir e consultar num intervalo entre dois pacientes ou duas aulas.</p>
-          </div>
-        </div>
-        <div class="waypoint reveal">
-          <span class="wp-num">03</span>
-          <span class="wp-dot" aria-hidden="true"></span>
-          <div class="wp-body">
-            <h3>Relação entre conceitos</h3>
-            <p>O formato visual mostra como diagnóstico, causa e conduta se conectam — uma relação que o texto corrido nem sempre deixa clara.</p>
-          </div>
-        </div>
-        <div class="waypoint reveal">
-          <span class="wp-num">04</span>
-          <span class="wp-dot" aria-hidden="true"></span>
-          <div class="wp-body">
-            <h3>Pensado pra última hora</h3>
-            <p>A estrutura foi pensada pra revisão de véspera — não pro primeiro contato com a matéria.</p>
-          </div>
-        </div>
-        <div class="waypoint reveal">
-          <span class="wp-num">05</span>
-          <span class="wp-dot" aria-hidden="true"></span>
-          <div class="wp-body">
-            <h3>Funciona em qualquer tela</h3>
-            <p>Celular no plantão, tablet na biblioteca, impresso em cima da mesa na véspera. Você escolhe o formato, o conteúdo é o mesmo.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ DENTRO DO KIT (abre a página) ============ -->
-  <section class="section dentro paper no-seam" id="dentro">
+  <!-- ============ TRÊS FORMAS DE REVISAR (abre a página) ============ -->
+  <section class="section page-open paper no-seam" id="tres-formas">
     <div class="page-break to-paper" aria-hidden="true">
       <svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,16 L40,4 L80,20 L120,2 L160,18 L200,6 L240,22 L280,4 L320,16 L360,2 L400,20 L440,8 L480,18 L520,4 L560,22 L600,6 L640,18 L680,2 L720,20 L760,8 L800,16 L840,2 L880,20 L920,6 L960,18 L1000,4 L1040,22 L1080,8 L1120,18 L1160,4 L1200,16 L1200,40 L0,40 Z"></path></svg>
     </div>
-    <div class="container dentro-inner">
-      <div>
-        <p class="eyebrow">Dentro do kit</p>
-        <h2 class="section-title" style="max-width:26ch;">Um atlas inteiro da graduação — mapas, resumos e fichas pra revisar rápido</h2>
+    <div class="container">
+      <div class="content-head">
+        <p class="eyebrow">Os três formatos do MedResumo</p>
+        <h2 class="section-title" style="max-width:40ch;">Não é apenas um conjunto de PDFs. É uma forma mais organizada de revisar Medicina.</h2>
         <!-- EDITE: áreas conforme o conteúdo real do kit -->
         <div class="chapters">
           <span class="chapter-tag">Clínica Médica</span>
@@ -775,48 +690,13 @@ try{
           <span class="chapter-tag">Farmacologia</span>
           <span class="chapter-tag">Emergências</span>
           <span class="chapter-tag">Saúde Coletiva</span>
-          <span class="chapter-tag" data-flag="resumosAutorais">Resumos Autorais</span>
-          <span class="chapter-tag" data-flag="fichasResumo">Fichas-Resumo</span>
-          <span class="chapter-tag" data-flag="questoesProvas">Banco de Provas</span>
         </div>
-      </div>
-      <ul class="specs-list">
-        <li><strong>Mapas mentais</strong> organizados por especialidade, em PDF de alta resolução.</li>
-        <li data-flag="resumosAutorais"><strong>Resumos autorais de Medicina</strong>, produzidos ao longo da graduação.</li>
-        <li data-flag="fichasResumo"><strong>Fichas-resumo visuais</strong>, com quadros e destaques pra consulta rápida.</li>
-        <li data-flag="questoesProvas"><strong>Provas antigas comentadas</strong> — gabarito explicado passo a passo, não só a letra certa.</li>
-        <li><strong>Otimizado pra tela e pra impressão</strong> — leia no plantão ou imprima pra marcar com lápis.</li>
-        <li><strong>Conteúdo cuidadosamente revisado</strong> antes da publicação.</li>
-      </ul>
-      <!-- EDITE: tabela "Conteúdo por especialidade". As linhas são montadas a partir de
-           CONFIG.coverage (no <script>, no final da página). Fica oculta até você preencher
-           os números reais de cada área e ligar FEATURE_FLAGS.coberturaPorArea = true. -->
-      <div class="coverage" data-flag="coberturaPorArea">
-        <h3>Conteúdo por especialidade</h3>
-        <div class="coverage-wrap">
-          <table class="coverage-table">
-            <thead>
-              <tr><th>Especialidade</th><th>Mapas</th><th>Resumos</th><th>Fichas</th></tr>
-            </thead>
-            <tbody id="coverageBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ TRÊS FORMAS DE REVISAR (página) ============ -->
-  <section class="section paper" id="tres-formas">
-    <div class="container">
-      <div class="content-head">
-        <p class="eyebrow">Os três formatos do MedResumo</p>
-        <h2 class="section-title" style="max-width:40ch;">Não é apenas um conjunto de PDFs. É uma forma mais organizada de revisar Medicina.</h2>
         <p class="lede" style="margin-top:16px;">Conheça os diferentes materiais que fazem parte do MedResumo Completo e como cada um pode complementar sua rotina de estudos.</p>
       </div>
       <div class="content-grid">
         <article class="content-card reveal">
           <div class="mockup-real">
-            <img src="assets/bonus01-pancreatite-aguda.png" alt="Exemplo real de um mapa mental sobre pancreatite aguda" loading="lazy">
+            <img src="assets/bonus01-hernia-inguinal.png" alt="Exemplo real de um mapa mental sobre hérnia inguinal" loading="lazy">
           </div>
           <div>
             <h3>Visualize os assuntos</h3>
@@ -887,6 +767,153 @@ try{
       </div>
     </div>
   </div>
+
+  <!-- ============ DEPOIMENTOS (página · oculta sozinha enquanto TESTIMONIALS estiver vazio) ============ -->
+  <!-- EDITE: os depoimentos vêm do array TESTIMONIALS (no <script>, no final da página).
+       Use apenas depoimentos reais, com autorização de quem escreveu. -->
+  <section class="section paper" id="depoimentos" hidden>
+    <div class="container">
+      <div class="content-head">
+        <p class="eyebrow">Quem já usou</p>
+        <h2 class="section-title" style="max-width:26ch;">O que dizem os estudantes que já revisaram com o MedResumo</h2>
+      </div>
+      <div class="testimonials-grid" id="testimonialsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ PLANOS (página) ============ -->
+  <section class="section paper" id="planos">
+    <div class="container">
+      <div class="planos-head">
+        <p class="eyebrow">Escolha seu plano</p>
+        <h2 class="section-title" style="max-width:32ch;">Dois jeitos de levar o MedResumo com você</h2>
+        <p class="lede" style="margin-top:14px;">Pagamento único. Acesso <strong class="text-accent">vitalício</strong> — sem mensalidade, sem prazo de expiração. Escolha o seu.</p>
+      </div>
+      <!-- EDITE: [NOME] e [FACULDADE] vêm de CONFIG.autor (no <script>, no final da página).
+           A faixa fica oculta enquanto CONFIG.autor ainda tiver os placeholders. -->
+      <p class="author-strip" data-author-block hidden>
+        <img src="assets/autor.jpg" alt="" loading="lazy" width="44" height="44">
+        <span>Material criado por <strong data-author="nome">[NOME]</strong>, <span data-author="faculdade">[FACULDADE]</span></span>
+      </p>
+      <div class="plans-grid">
+        <!-- EDITE: o link real vem de CONFIG.plans.essencial.checkoutUrl, no <script> no final da página -->
+        <article class="plan-card reveal">
+          <h3>MedResumo Essencial</h3>
+          <p class="plan-sub">Uma opção acessível para começar a revisar Medicina com mapas mentais.</p>
+          <div class="plan-price">
+            <span class="new" id="priceEssencial"><small>R$</small>17,90</span>
+            <span class="per">pagamento único</span>
+          </div>
+          <span class="lifetime-badge">Acesso vitalício</span>
+          <ul class="plan-feats">
+            <li data-flag="mapasMentais">15 mapas mentais selecionados</li>
+            <li>Guia rápido de utilização</li>
+            <li>Checklist básico de revisão</li>
+            <li>Acesso digital</li>
+            <li>Garantia de 7 dias</li>
+          </ul>
+          <a href="#" class="btn btn-outline plan-cta" id="ctaEssencial">QUERO O ESSENCIAL — <span class="nowrap">R$ <span data-price="essencial">17,90</span></span></a>
+          <p class="checkout-pending" id="checkoutPendingEssencial" hidden>Checkout em configuração — em breve disponível.</p>
+        </article>
+
+        <!-- EDITE: o link real vem de CONFIG.plans.completo.checkoutUrl, no <script> no final da página -->
+        <article class="plan-card plan-featured reveal">
+          <span class="plan-tag">MAIS COMPLETO</span>
+          <h3>MedResumo Completo</h3>
+          <p class="plan-sub">Uma biblioteca digital com diferentes formatos de revisão para complementar seus estudos de Medicina.</p>
+          <div class="plan-price">
+            <span class="new" id="priceCompleto"><small>R$</small>37,90</span>
+            <span class="per">pagamento único</span>
+          </div>
+          <span class="lifetime-badge">Acesso vitalício</span>
+          <ul class="plan-feats">
+            <li data-flag="bibliotecaAmpliada"><span><span data-count="totalMapas" data-count-fallback="Biblioteca ampliada de">+65</span> mapas mentais</span></li>
+            <li data-flag="resumosAutorais"><span><span data-count="totalResumos" data-count-fallback="Biblioteca de">+30</span> resumos autorais produzidos durante seis anos de Medicina</span></li>
+            <li data-flag="fichasResumo"><span><span data-count="totalFichas" data-count-fallback="Biblioteca de">+50</span> fichas-resumo visuais, de várias especialidades</span></li>
+            <li data-flag="bonusProvasAbertas">Bônus: links para provas públicas de Medicina</li>
+            <li data-flag="mapasClinicosExtras">Mapas clínicos complementares</li>
+            <li data-flag="questoesProvas">Questões comentadas e provas autorizadas, somente quando disponíveis</li>
+            <li data-flag="flashcards">Materiais adicionais de organização, somente quando disponíveis</li>
+            <li>Acesso digital</li>
+            <li>Garantia de 7 dias</li>
+            <li data-flag="orderBumps">Pacotes extras por área disponíveis no checkout</li>
+          </ul>
+          <a href="#" class="btn btn-cta plan-cta" id="ctaCompleto">QUERO O COMPLETO — <span class="nowrap">R$ <span data-price="completo">37,90</span></span></a>
+          <p class="checkout-pending" id="checkoutPendingCompleto" hidden>Checkout em configuração — em breve disponível.</p>
+        </article>
+      </div>
+
+      <div class="compare-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr><th>Recurso</th><th>Essencial</th><th>Completo</th></tr>
+          </thead>
+          <tbody>
+            <tr data-flag="mapasMentais"><td>Mapas mentais</td><td class="yes">15</td><td class="yes" data-count="totalMapas" data-count-fallback="✓">+65</td></tr>
+            <tr data-flag="resumosAutorais"><td>Resumos autorais</td><td class="no">—</td><td class="yes" data-count="totalResumos" data-count-fallback="✓">+30</td></tr>
+            <tr data-flag="fichasResumo"><td>Fichas-resumo</td><td class="no">—</td><td class="yes" data-count="totalFichas" data-count-fallback="✓">+50</td></tr>
+            <tr data-flag="bonusProvasAbertas"><td>Bônus: links para provas públicas</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr data-flag="mapasClinicosExtras"><td>Mapas clínicos complementares</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr data-flag="questoesProvas"><td>Questões comentadas / provas autorizadas</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr data-flag="flashcards"><td>Materiais extras de organização</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr><td>Acesso digital</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Acesso vitalício</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Garantia de 7 dias</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="plans-specialties"><strong>Especialidades contempladas:</strong> Clínica Médica, Cirurgia, Pediatria, Ginecologia e Obstetrícia, Semiologia, Farmacologia, Emergências, Saúde Coletiva.</p>
+      <!-- EDITE: tabela "Conteúdo por especialidade". As linhas são montadas a partir de
+           CONFIG.coverage (no <script>, no final da página). Fica oculta até você preencher
+           os números reais de cada área e ligar FEATURE_FLAGS.coberturaPorArea = true. -->
+      <div class="coverage" data-flag="coberturaPorArea">
+        <h3>Conteúdo por especialidade</h3>
+        <div class="coverage-wrap">
+          <table class="coverage-table">
+            <thead>
+              <tr><th>Especialidade</th><th>Mapas</th><th>Resumos</th><th>Fichas</th></tr>
+            </thead>
+            <tbody id="coverageBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- EDITE: o valor (diferença entre os planos) e as quantidades são preenchidos a partir
+           de CONFIG.plans e CONFIG.counts (no <script>, no final da página). -->
+      <div class="compare-callout-wrap">
+        <div class="compare-callout" id="compareCallout">
+          <p class="compare-callout-title">Por apenas <strong>R$ 20</strong> a mais, tenha uma biblioteca de revisão muito mais completa.</p>
+          <p class="compare-callout-text">O MedResumo Completo reúne +65 mapas mentais (incluindo os 15 do Essencial), +30 resumos autorais e +50 fichas-resumo, além do bônus de links para provas públicas.</p>
+        </div>
+      </div>
+      <p class="plans-note">Acesso liberado por e-mail após a confirmação do pagamento.</p>
+    </div>
+  </section>
+
+  <!-- ============ BÔNUS (página · oculta sozinha se nada estiver available) ============ -->
+  <section class="section paper" id="bonus" hidden>
+    <div class="container bonus-inner">
+      <div>
+        <p class="eyebrow">De brinde na mochila</p>
+        <h2 class="section-title" style="max-width:20ch;">Bônus inclusos no MedResumo Completo</h2>
+        <p class="lede" style="margin-top:16px;">Sem custo extra pra quem já está no MedResumo Completo.</p>
+      </div>
+      <ul class="bonus-list" id="bonusList"></ul>
+    </div>
+  </section>
+
+  <!-- ============ GARANTIA (página) ============ -->
+  <section class="section paper" id="garantia">
+    <div class="container garantia-inner">
+      <div class="seal" aria-hidden="true">
+        <div class="seal-text"><strong>7</strong><span>DIAS DE<br>GARANTIA</span></div>
+      </div>
+      <div>
+        <p class="eyebrow">Sem risco pra você</p>
+        <h2 class="section-title" style="max-width:26ch;">7 dias pra abrir, testar e decidir com calma</h2>
+        <p class="lede" style="margin-top:16px;">Se o material não for pra você, peça o reembolso dentro de 7 dias. O pedido segue as regras da plataforma de pagamento.</p>
+      </div>
+    </div>
+  </section>
 
   <!-- ============ DEMONSTRAÇÃO: MESMO ASSUNTO, FORMATOS DIFERENTES ============ -->
   <section class="section paper" id="demonstracao">
@@ -976,152 +1003,6 @@ try{
     </div>
   </section>
 
-  <!-- ============ DEPOIMENTOS (página · oculta sozinha enquanto TESTIMONIALS estiver vazio) ============ -->
-  <!-- EDITE: os depoimentos vêm do array TESTIMONIALS (no <script>, no final da página).
-       Use apenas depoimentos reais, com autorização de quem escreveu. -->
-  <section class="section paper" id="depoimentos" hidden>
-    <div class="container">
-      <div class="content-head">
-        <p class="eyebrow">Quem já usou</p>
-        <h2 class="section-title" style="max-width:26ch;">O que dizem os estudantes que já revisaram com o MedResumo</h2>
-      </div>
-      <div class="testimonials-grid" id="testimonialsGrid"></div>
-    </div>
-  </section>
-
-  <!-- ============ O QUE VOCÊ RECEBE (só o confirmado) ============ -->
-  <section class="section paper" id="o-que-voce-recebe">
-    <div class="container">
-      <div class="content-head">
-        <p class="eyebrow">Antes de ver os planos</p>
-        <h2 class="section-title" style="max-width:22ch;">O que você recebe</h2>
-      </div>
-      <ul class="specs-list">
-        <li id="specMapas"></li>
-        <li id="specResumos" data-flag="resumosAutorais"></li>
-        <li id="specFichas" data-flag="fichasResumo"></li>
-        <li id="specCompleto"></li>
-        <li><strong>Especialidades contempladas:</strong> Clínica Médica, Cirurgia, Pediatria, Ginecologia e Obstetrícia, Semiologia, Farmacologia, Emergências, Saúde Coletiva.</li>
-        <li><strong>Formato dos arquivos:</strong> PDF digital, em alta resolução, otimizado pra tela e pra impressão.</li>
-        <li><strong>Forma de acesso:</strong> Digital, liberado por e-mail após a confirmação do pagamento.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ============ PLANOS (página) ============ -->
-  <section class="section paper" id="planos">
-    <div class="container">
-      <div class="planos-head">
-        <p class="eyebrow">Escolha seu plano</p>
-        <h2 class="section-title" style="max-width:32ch;">Dois jeitos de levar o MedResumo com você</h2>
-        <p class="lede" style="margin-top:14px;">Pagamento único. Acesso <strong class="text-accent">vitalício</strong> — sem mensalidade, sem prazo de expiração. Dois checkouts independentes — escolha o seu.</p>
-      </div>
-      <!-- EDITE: [NOME] e [FACULDADE] vêm de CONFIG.autor (no <script>, no final da página).
-           A faixa fica oculta enquanto CONFIG.autor ainda tiver os placeholders. -->
-      <p class="author-strip" data-author-block hidden>
-        <img src="assets/autor.jpg" alt="" loading="lazy" width="44" height="44">
-        <span>Material criado por <strong data-author="nome">[NOME]</strong>, <span data-author="faculdade">[FACULDADE]</span></span>
-      </p>
-      <div class="plans-grid">
-        <!-- EDITE: o link real vem de CONFIG.plans.essencial.checkoutUrl, no <script> no final da página -->
-        <article class="plan-card reveal">
-          <h3>MedResumo Essencial</h3>
-          <p class="plan-sub">Uma opção acessível para começar a revisar Medicina com mapas mentais.</p>
-          <div class="plan-price">
-            <span class="new" id="priceEssencial"><small>R$</small>17,90</span>
-            <span class="per">pagamento único</span>
-          </div>
-          <span class="lifetime-badge">Acesso vitalício</span>
-          <ul class="plan-feats">
-            <li data-flag="mapasMentais">15 mapas mentais selecionados</li>
-            <li>Guia rápido de utilização</li>
-            <li>Checklist básico de revisão</li>
-            <li>Acesso digital</li>
-            <li>Garantia de 7 dias</li>
-          </ul>
-          <a href="#" class="btn btn-outline plan-cta" id="ctaEssencial">QUERO O ESSENCIAL — <span class="nowrap">R$ <span data-price="essencial">17,90</span></span></a>
-          <p class="checkout-pending" id="checkoutPendingEssencial" hidden>Checkout em configuração — em breve disponível.</p>
-        </article>
-
-        <!-- EDITE: o link real vem de CONFIG.plans.completo.checkoutUrl, no <script> no final da página -->
-        <article class="plan-card plan-featured reveal">
-          <span class="plan-tag">MAIS COMPLETO</span>
-          <h3>MedResumo Completo</h3>
-          <p class="plan-sub">Uma biblioteca digital com diferentes formatos de revisão para complementar seus estudos de Medicina.</p>
-          <div class="plan-price">
-            <span class="new" id="priceCompleto"><small>R$</small>37,90</span>
-            <span class="per">pagamento único</span>
-          </div>
-          <span class="lifetime-badge">Acesso vitalício</span>
-          <ul class="plan-feats">
-            <li data-flag="bibliotecaAmpliada"><span><span data-count="totalMapas" data-count-fallback="Biblioteca ampliada de">+65</span> mapas mentais</span></li>
-            <li data-flag="resumosAutorais"><span><span data-count="totalResumos" data-count-fallback="Biblioteca de">+30</span> resumos autorais produzidos durante seis anos de Medicina</span></li>
-            <li data-flag="fichasResumo"><span><span data-count="totalFichas" data-count-fallback="Biblioteca de">+50</span> fichas-resumo visuais, de várias especialidades</span></li>
-            <li data-flag="bonusProvasAbertas">Bônus: links de provas abertas para treinar</li>
-            <li data-flag="mapasClinicosExtras">Mapas clínicos complementares</li>
-            <li data-flag="questoesProvas">Questões comentadas e provas autorizadas, somente quando disponíveis</li>
-            <li data-flag="flashcards">Materiais adicionais de organização, somente quando disponíveis</li>
-            <li>Acesso digital</li>
-            <li>Garantia de 7 dias</li>
-            <li data-flag="orderBumps">Pacotes extras por área disponíveis no checkout</li>
-          </ul>
-          <a href="#" class="btn btn-cta plan-cta" id="ctaCompleto">QUERO O COMPLETO — <span class="nowrap">R$ <span data-price="completo">37,90</span></span></a>
-          <p class="checkout-pending" id="checkoutPendingCompleto" hidden>Checkout em configuração — em breve disponível.</p>
-        </article>
-      </div>
-
-      <div class="compare-wrap">
-        <table class="compare-table">
-          <thead>
-            <tr><th>Recurso</th><th>Essencial</th><th>Completo</th></tr>
-          </thead>
-          <tbody>
-            <tr data-flag="mapasMentais"><td>Mapas mentais</td><td class="yes">15</td><td class="yes" data-count="totalMapas" data-count-fallback="✓">+65</td></tr>
-            <tr data-flag="resumosAutorais"><td>Resumos autorais</td><td class="no">—</td><td class="yes" data-count="totalResumos" data-count-fallback="✓">+30</td></tr>
-            <tr data-flag="fichasResumo"><td>Fichas-resumo</td><td class="no">—</td><td class="yes" data-count="totalFichas" data-count-fallback="✓">+50</td></tr>
-            <tr data-flag="bonusProvasAbertas"><td>Bônus: provas abertas</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="mapasClinicosExtras"><td>Mapas clínicos complementares</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="questoesProvas"><td>Questões comentadas / provas autorizadas</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="flashcards"><td>Materiais extras de organização</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr><td>Acesso digital</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-            <tr><td>Acesso vitalício</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-            <tr><td>Garantia de 7 dias</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="compare-callout-wrap">
-        <p class="compare-callout" id="compareCallout">Por <strong>R$ 20</strong> a mais, você leva o pacote completo: +65 mapas, +30 resumos, +50 fichas e o bônus de provas abertas.</p>
-      </div>
-      <p class="plans-note">Acesso liberado por e-mail após a confirmação do pagamento.</p>
-    </div>
-  </section>
-
-  <!-- ============ BÔNUS (página · oculta sozinha se nada estiver available) ============ -->
-  <section class="section paper" id="bonus" hidden>
-    <div class="container bonus-inner">
-      <div>
-        <p class="eyebrow">De brinde na mochila</p>
-        <h2 class="section-title" style="max-width:20ch;">Bônus inclusos no MedResumo Completo</h2>
-        <p class="lede" style="margin-top:16px;">Sem custo extra pra quem já está no MedResumo Completo.</p>
-      </div>
-      <ul class="bonus-list" id="bonusList"></ul>
-    </div>
-  </section>
-
-  <!-- ============ GARANTIA (página) ============ -->
-  <section class="section paper" id="garantia">
-    <div class="container garantia-inner">
-      <div class="seal" aria-hidden="true">
-        <div class="seal-text"><strong>7</strong><span>DIAS DE<br>GARANTIA</span></div>
-      </div>
-      <div>
-        <p class="eyebrow">Sem risco pra você</p>
-        <h2 class="section-title" style="max-width:26ch;">7 dias pra abrir, testar e decidir com calma</h2>
-        <p class="lede" style="margin-top:16px;">Se o material não for pra você, peça o reembolso dentro de 7 dias. O pedido segue as regras da plataforma de pagamento.</p>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ FAQ (página) ============ -->
   <section class="section paper" id="faq">
     <div class="container faq-inner">
@@ -1132,7 +1013,7 @@ try{
       <div class="faq-list">
         <details class="faq-item">
           <summary>Qual a diferença entre os planos? <span class="chev">+</span></summary>
-          <div class="faq-a"><p>O Essencial reúne 15 mapas mentais. O Completo reúne <span data-count="totalMapas">+65</span> mapas mentais, <span data-count="totalResumos">+30</span> resumos autorais, <span data-count="totalFichas">+50</span> fichas-resumo<span data-flag="bonusProvasAbertas"> e o bônus de links de provas abertas</span>.</p></div>
+          <div class="faq-a"><p>O Essencial reúne 15 mapas mentais. O Completo reúne <span data-count="totalMapas">+65</span> mapas mentais, <span data-count="totalResumos">+30</span> resumos autorais, <span data-count="totalFichas">+50</span> fichas-resumo<span data-flag="bonusProvasAbertas"> e o bônus de links para provas públicas de Medicina</span>.</p></div>
         </details>
         <details class="faq-item">
           <summary>Como recebo os arquivos? <span class="chev">+</span></summary>
@@ -1194,7 +1075,7 @@ try{
     </div>
     <nav class="footer-links">
       <!-- EDITE: links reais -->
-      <a href="#dentro">O kit</a>
+      <a href="#tres-formas">O kit</a>
       <a href="#amostras">Amostras</a>
       <a href="#planos">Planos</a>
       <a href="#faq">FAQ</a>
@@ -1303,7 +1184,7 @@ try{
   // cada um aponta pra página oficial. Não descreva este bônus como prova
   // "comentada" nem "com gabarito explicado" (isso é outro recurso: questoesProvas).
   var BONUS_ITEMS = [
-    { id:"provasAbertas", title:"Links de Provas Abertas", desc:"Uma seleção de links para provas públicas, organizadas para você treinar todo o seu conhecimento depois de revisar.", available:true },
+    { id:"provasAbertas", title:"Links para provas públicas de Medicina", desc:"Uma seleção de links para provas disponibilizadas gratuitamente pelas fontes oficiais, para você treinar depois de revisar. Não são provas comentadas e não são de autoria do MedResumo.", available:true },
     { id:"cronograma", title:"Cronograma de Revisão de 30 Dias", desc:"Um roteiro dia a dia pra organizar o que revisar antes da prova, sem perder tempo decidindo por onde começar.", available:false },
     { id:"checklist",  title:"Checklist Pré-Prova",              desc:"Uma folha única pra revisar na última hora, com os pontos que mais aparecem em prova.", available:false },
     { id:"glossario",  title:"Glossário de Siglas Médicas",      desc:"As siglas que travam a leitura rápida — organizadas num guia de consulta instantânea.", available:false },
@@ -1313,7 +1194,7 @@ try{
   // (Hoje nenhuma linha da página depende dele: "Materiais adicionais de organização"
   // depende só de FEATURE_FLAGS.flashcards.)
   FEATURE_FLAGS.outrosBonus = BONUS_ITEMS.some(function(b){ return b.available; });
-  // "bonusProvasAbertas" liga a linha "Bônus: links de provas abertas" no card do
+  // "bonusProvasAbertas" liga a linha "Bônus: links para provas públicas" no card do
   // Completo, na tabela comparativa e no FAQ — segue o available do item acima.
   FEATURE_FLAGS.bonusProvasAbertas = BONUS_ITEMS.some(function(b){ return b.id === 'provasAbertas' && b.available; });
 
@@ -1450,9 +1331,10 @@ try{
     if(callout){
       var cM = CONFIG.counts.totalMapas, cR = CONFIG.counts.totalResumos, cF = CONFIG.counts.totalFichas;
       var countsOk = [cM, cR, cF].every(function(n){ return typeof n === 'number' && n > 0; });
-      callout.innerHTML = countsOk
-        ? 'Por <strong>R$ ' + diffText + '</strong> a mais, você leva o pacote completo: +' + cM + ' mapas, +' + cR + ' resumos, +' + cF + ' fichas' + (FEATURE_FLAGS.bonusProvasAbertas ? ' e o bônus de provas abertas.' : '.')
-        : 'Por <strong>R$ ' + diffText + '</strong> a mais que o Essencial, você tem acesso aos materiais adicionais do Completo.';
+      var calloutTitle = '<p class="compare-callout-title">Por apenas <strong>R$ ' + diffText + '</strong> a mais, tenha uma biblioteca de revisão muito mais completa.</p>';
+      callout.innerHTML = calloutTitle + (countsOk
+        ? '<p class="compare-callout-text">O MedResumo Completo reúne +' + cM + ' mapas mentais (incluindo os 15 do Essencial), +' + cR + ' resumos autorais e +' + cF + ' fichas-resumo' + (FEATURE_FLAGS.bonusProvasAbertas ? ', além do bônus de links para provas públicas.' : '.') + '</p>'
+        : '');
     }
   }catch(e){}
 
@@ -1516,52 +1398,17 @@ try{
   }catch(e){}
 
   /* ================================================================
-     "O QUE VOCÊ RECEBE" + badge de resumos — só mostra número quando
-     CONFIG.counts estiver preenchido. Sem confirmação, usa texto genérico.
+     NÚMEROS DE CONTEÚDO — só mostra número quando CONFIG.counts estiver
+     preenchido. Sem confirmação, usa texto genérico.
      ================================================================ */
   try{
-    var specMapas = document.getElementById('specMapas');
-    if(specMapas){
-      var nMapas = CONFIG.counts.totalMapas;
-      specMapas.innerHTML = (typeof nMapas === 'number' && nMapas > 0)
-        ? '<strong>+' + nMapas + ' mapas mentais</strong> no MedResumo Completo (15 deles também no Essencial).'
-        : '<strong>Biblioteca de mapas mentais</strong>, organizados por especialidade.';
-    }
-
     var nResumos = CONFIG.counts.totalResumos;
     var temResumos = (typeof nResumos === 'number' && nResumos > 0);
-    var specResumos = document.getElementById('specResumos');
-    if(specResumos){
-      specResumos.innerHTML = temResumos
-        ? '<strong>+' + nResumos + ' resumos autorais</strong>, produzidos durante a graduação.'
-        : '<strong>Biblioteca de resumos autorais</strong>, produzidos durante a graduação.';
-    }
     var resumosBadge = document.getElementById('resumosBadgeChip');
     if(resumosBadge){
       resumosBadge.textContent = temResumos
         ? '+' + nResumos + ' RESUMOS AUTORAIS'
         : 'BIBLIOTECA DE RESUMOS AUTORAIS';
-    }
-
-    // Fichas tem a própria contagem — nunca herda o número ou o limiar dos resumos.
-    var nFichas = CONFIG.counts.totalFichas;
-    var specFichas = document.getElementById('specFichas');
-    if(specFichas){
-      specFichas.innerHTML = (typeof nFichas === 'number' && nFichas > 0)
-        ? '<strong>+' + nFichas + ' fichas-resumo</strong> visuais, organizadas por assunto.'
-        : '<strong>Fichas-resumo visuais</strong>, organizadas por assunto.';
-    }
-
-    // Resumo do conteúdo do Completo, numa linha só.
-    var specCompleto = document.getElementById('specCompleto');
-    if(specCompleto){
-      var temTodos = [nMapas, nResumos, nFichas].every(function(n){ return typeof n === 'number' && n > 0; });
-      if(temTodos){
-        specCompleto.innerHTML = '<strong>No MedResumo Completo:</strong> +' + nMapas + ' mapas mentais, +' + nResumos + ' resumos autorais, +' + nFichas + ' fichas-resumo' +
-          (FEATURE_FLAGS.bonusProvasAbertas ? ' e o bônus de links de provas abertas.' : '.');
-      } else {
-        specCompleto.hidden = true;
-      }
     }
 
     // Qualquer elemento com data-count="totalMapas|totalResumos|totalFichas" recebe
@@ -1841,34 +1688,6 @@ try{
   }catch(e){
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('is-visible'); });
   }
-
-  /* ================================================================
-     LINHA DE ROTA (seção "A rota")
-     ================================================================ */
-  try{
-    var wp = document.getElementById('waypoints');
-    if(wp){
-      var ticking = false;
-      function updateProgress(){
-        var rect = wp.getBoundingClientRect();
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        var total = rect.height + vh * 0.5;
-        var scrolled = (vh * 0.8) - rect.top;
-        var progress = Math.max(0, Math.min(1, scrolled / total));
-        wp.style.setProperty('--progress', progress.toFixed(3));
-        ticking = false;
-      }
-      function onScroll(){
-        if(!ticking){
-          window.requestAnimationFrame(updateProgress);
-          ticking = true;
-        }
-      }
-      window.addEventListener('scroll', onScroll, {passive:true});
-      window.addEventListener('resize', onScroll);
-      updateProgress();
-    }
-  }catch(e){}
 
   /* ================================================================
      BARRA FIXA NO CELULAR — aparece depois que o hero sai da tela e some
