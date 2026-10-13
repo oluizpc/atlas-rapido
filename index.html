@@ -382,6 +382,12 @@
   .plan-feats{display:flex;flex-direction:column;gap:10px;flex:1;}
   .plan-feats li{font-size:.9rem;color:var(--on-surface-dim);display:flex;gap:10px;}
   .plan-feats li::before{content:"✓";color:var(--teal);font-weight:600;flex:0 0 auto;}
+  .lifetime-badge{
+    display:inline-flex;align-items:center;align-self:flex-start;gap:6px;margin-top:-4px;
+    font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:5px 12px;font-weight:600;
+  }
+  .text-accent{color:var(--accent);}
   .plan-cta{width:100%;}
   .plan-cta[aria-disabled="true"]{opacity:.55;cursor:not-allowed;filter:saturate(.7);}
   .plan-cta[aria-disabled="true"]:hover{transform:none;box-shadow:none;}
@@ -541,7 +547,7 @@ try{
         <ul class="hero-trust">
           <li>PDF em alta resolução</li>
           <li data-flag="resumosAutorais">Resumos autorais e fichas-resumo disponíveis no Kit Completo</li>
-          <li>Acesso imediato após a compra</li>
+          <li>Acesso <strong class="text-accent">vitalício</strong> e imediato após a compra</li>
         </ul>
       </div>
       <div class="hero-visual" aria-hidden="true">
@@ -900,7 +906,7 @@ try{
       <div class="planos-head">
         <p class="eyebrow">Escolha seu plano</p>
         <h2 class="section-title" style="max-width:32ch;">Dois jeitos de levar o atlas com você</h2>
-        <p class="lede" style="margin-top:14px;">Pagamento único. Sem mensalidade. Dois checkouts independentes — escolha o seu.</p>
+        <p class="lede" style="margin-top:14px;">Pagamento único. Acesso <strong class="text-accent">vitalício</strong> — sem mensalidade, sem prazo de expiração. Dois checkouts independentes — escolha o seu.</p>
       </div>
       <div class="plans-grid">
         <!-- EDITE: o link real vem de CONFIG.plans.essencial.checkoutUrl, no <script> no final da página -->
@@ -911,6 +917,7 @@ try{
             <span class="new" id="priceEssencial"><small>R$</small>17,90</span>
             <span class="per">pagamento único</span>
           </div>
+          <span class="lifetime-badge">Acesso vitalício</span>
           <ul class="plan-feats">
             <li data-flag="mapasMentais">15 mapas mentais selecionados</li>
             <li>Guia rápido de utilização</li>
@@ -931,6 +938,7 @@ try{
             <span class="new" id="priceCompleto"><small>R$</small>37,90</span>
             <span class="per">pagamento único</span>
           </div>
+          <span class="lifetime-badge">Acesso vitalício</span>
           <ul class="plan-feats">
             <li>Tudo do Kit Essencial</li>
             <li data-flag="bibliotecaAmpliada">Biblioteca ampliada de mapas mentais</li>
@@ -961,6 +969,7 @@ try{
             <tr data-flag="questoesProvas"><td>Questões comentadas / provas autorizadas</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr data-flag="flashcards" data-flag-or="outrosBonus"><td>Materiais extras de organização</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr><td>Acesso digital</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Acesso vitalício</td><td class="yes">✓</td><td class="yes">✓</td></tr>
             <tr><td>Garantia de 7 dias</td><td class="yes">✓</td><td class="yes">✓</td></tr>
           </tbody>
         </table>
@@ -1024,7 +1033,7 @@ try{
         </details>
         <details class="faq-item">
           <summary>O pagamento é mensal? <span class="chev">+</span></summary>
-          <div class="faq-a"><p>Não. Os dois planos são de pagamento único.</p></div>
+          <div class="faq-a"><p>Não. Os dois planos são de pagamento único, com acesso <strong class="text-accent">vitalício</strong> — sem mensalidade e sem data de expiração.</p></div>
         </details>
         <details class="faq-item">
           <summary>Existe garantia? <span class="chev">+</span></summary>
