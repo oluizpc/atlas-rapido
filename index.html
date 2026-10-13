@@ -339,14 +339,16 @@
   /* ============ ORIGEM DOS MATERIAIS ============ */
   .origin-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:clamp(32px,6vw,56px);align-items:center;}
   .author-photo{
-    aspect-ratio:3/4;max-width:300px;border:2px dashed var(--edge-strong);border-radius:16px;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-    background:var(--surface);color:var(--on-surface-dimmer);padding:20px;text-align:center;
+    aspect-ratio:3/4;max-width:300px;border-radius:16px;overflow:hidden;
+    border:1px solid var(--edge);box-shadow:var(--shadow-deep);background:var(--surface);
   }
-  .author-photo svg{width:52px;height:52px;}
-  .author-photo span{font-family:var(--ff-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;max-width:20ch;}
+  .author-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
+  .photo-caption{
+    max-width:300px;margin-top:10px;font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.03em;
+    text-transform:uppercase;color:var(--on-surface-dimmer);text-align:center;
+  }
   .origin-text{font-family:var(--ff-display);font-size:1.18rem;line-height:1.75;color:var(--on-surface);font-style:italic;}
-  @media (max-width:880px){ .origin-grid{grid-template-columns:1fr;} .author-photo{margin-inline:auto;} }
+  @media (max-width:880px){ .origin-grid{grid-template-columns:1fr;} .author-photo,.photo-caption{margin-inline:auto;} }
 
   /* ============ PARA QUEM É ============ */
   .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
@@ -843,13 +845,13 @@ try{
   <!-- ============ ORIGEM DOS MATERIAIS ============ -->
   <section class="section paper" id="origem">
     <div class="container origin-grid">
-      <!-- EDITE: substitua o placeholder abaixo por uma fotografia real de quem criou o material -->
-      <div class="author-photo reveal" aria-hidden="true">
-        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="24" cy="17" r="9"></circle>
-          <path d="M6 42c0-10 8-16 18-16s18 6 18 16"></path>
-        </svg>
-        <span>Foto real — a inserir</span>
+      <!-- EDITE: imagem ilustrativa gerada por IA, usada como espaço reservado visual.
+           Troque por uma fotografia real de quem criou o material assim que houver uma disponível. -->
+      <div>
+        <div class="author-photo reveal">
+          <img src="assets/medresumo-sobre-material.webp" alt="Imagem ilustrativa de profissional da saúde com jaleco e estetoscópio, usada como representação visual da seção" loading="lazy" width="900" height="1200">
+        </div>
+        <p class="photo-caption reveal">Imagem ilustrativa — não é uma fotografia real da autora</p>
       </div>
       <div class="reveal">
         <p class="eyebrow">Sobre o material</p>
