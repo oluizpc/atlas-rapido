@@ -14,7 +14,12 @@
 <meta property="og:title" content="MedResumo — Sua biblioteca de revisão médica">
 <meta property="og:description" content="Conheça o MedResumo: mapas mentais, resumos autorais e fichas-resumo para complementar seus estudos de Medicina. Kits digitais a partir de R$ 17,90.">
 <meta property="og:url" content="https://oluizpc.github.io/atlas-rapido/">
-<!-- EDITE: og:image — ainda não existe uma imagem de capa dedicada (1200x630). Pendência de lançamento. -->
+<!-- EDITE: og:image — crie o arquivo assets/og-medresumo.jpg (1200x630 px) antes de publicar.
+     Enquanto o arquivo não existir, o link compartilhado fica sem imagem de capa.
+     A URL precisa ser absoluta; se o domínio mudar, troque aqui também. -->
+<meta property="og:image" content="https://oluizpc.github.io/atlas-rapido/assets/og-medresumo.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
@@ -73,6 +78,9 @@
   @media (prefers-reduced-motion: no-preference){ :root{scroll-behavior:smooth;} }
 
   *{box-sizing:border-box;}
+  /* Tudo que as flags/arrays ocultam usa o atributo hidden. Sem esta regra, um display:flex
+     ou display:grid do CSS vence o hidden e o item desligado continua aparecendo. */
+  [hidden]{display:none !important;}
   ul{list-style:none;margin:0;padding:0;}
   a{color:inherit;text-decoration:none;}
   button{font:inherit;border:none;background:none;cursor:pointer;color:inherit;}
@@ -265,6 +273,18 @@
   .specs-list li strong{color:var(--on-surface);font-weight:600;}
   @media (max-width:880px){ .dentro-inner{grid-template-columns:1fr;} }
 
+  /* Cobertura por especialidade (opcional, ver FEATURE_FLAGS.coberturaPorArea) */
+  .coverage{grid-column:1 / -1;}
+  .coverage h3{font-family:var(--ff-display);font-weight:600;color:var(--on-surface);font-size:1.2rem;margin-bottom:14px;}
+  .coverage-wrap{overflow-x:auto;}
+  .coverage-table{width:100%;border-collapse:collapse;min-width:280px;font-size:.92rem;}
+  .coverage-table th,.coverage-table td{padding:11px 14px;text-align:center;border-bottom:1px solid var(--edge);font-variant-numeric:tabular-nums;}
+  .coverage-table th:first-child,.coverage-table td:first-child{text-align:left;color:var(--on-surface);}
+  .coverage-table th{font-family:var(--ff-mono);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;color:var(--on-surface-dimmer);font-weight:600;}
+  .coverage-table td{color:var(--on-surface-dim);}
+  .coverage-table tbody tr:last-child td{border-bottom:none;}
+  @media (max-width:480px){ .coverage-table{font-size:.8rem;} .coverage-table th,.coverage-table td{padding:9px 7px;} }
+
   /* ============ AMOSTRAS — galeria com abas + lightbox (página) ============ */
   .amostras-head{max-width:54ch;margin-bottom:36px;}
   .gallery-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
@@ -344,7 +364,17 @@
   }
   .author-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
   .origin-text{font-family:var(--ff-display);font-size:1.18rem;line-height:1.75;color:var(--on-surface);font-style:italic;}
+  .author-byline{margin-top:12px;font-family:var(--ff-mono);font-size:.82rem;letter-spacing:.02em;color:var(--on-surface-dim);}
+  .author-byline strong{color:var(--on-surface);font-weight:600;}
   @media (max-width:880px){ .origin-grid{grid-template-columns:1fr;} .author-photo{margin-inline:auto;} }
+
+  /* ============ DEPOIMENTOS (página · data-driven, ver TESTIMONIALS) ============ */
+  .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
+  .testimonial-card{margin:0;background:var(--surface-raised);border:1px solid var(--edge);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:16px;}
+  .testimonial-print{border-radius:10px;border:1px solid var(--edge);width:100%;height:auto;display:block;}
+  .testimonial-card blockquote{margin:0;font-family:var(--ff-display);font-style:italic;font-size:1.02rem;line-height:1.65;color:var(--on-surface);}
+  .testimonial-card figcaption{margin-top:auto;font-size:.86rem;color:var(--on-surface-dim);}
+  .testimonial-card figcaption strong{display:block;color:var(--on-surface);font-weight:600;}
 
   /* ============ PARA QUEM É ============ */
   .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
@@ -397,12 +427,19 @@
     margin-top:-6px;font-family:var(--ff-mono);font-size:.82rem;letter-spacing:.02em;
     color:var(--on-surface-dimmer);text-align:center;
   }
+  /* Faixa de autoria acima dos planos (some sozinha enquanto CONFIG.autor não for preenchido) */
+  .author-strip{
+    display:flex;align-items:center;gap:12px;max-width:860px;margin:0 auto 34px;
+    font-size:.92rem;color:var(--on-surface-dim);
+  }
+  .author-strip img{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top center;border:1px solid var(--edge);flex:0 0 auto;}
+  .author-strip strong{color:var(--on-surface);font-weight:600;}
   .plans-note{margin-top:28px;font-family:var(--ff-mono);font-size:.78rem;color:var(--on-surface-dimmer);text-align:center;}
   @media (max-width:700px){ .plans-grid{grid-template-columns:1fr;max-width:440px;} .plan-featured{transform:none;} }
 
   /* ============ TABELA COMPARATIVA (página) ============ */
   .compare-wrap{margin-top:44px;overflow-x:auto;}
-  .compare-table{width:100%;border-collapse:collapse;min-width:320px;font-size:.92rem;}
+  .compare-table{width:100%;border-collapse:collapse;min-width:280px;font-size:.92rem;}
   .compare-table th,.compare-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--edge);}
   .compare-table th{font-family:var(--ff-mono);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;color:var(--on-surface-dimmer);font-weight:600;}
   .compare-table th:nth-child(2),.compare-table th:nth-child(3),
@@ -419,6 +456,7 @@
     border:1px solid var(--accent);border-radius:999px;padding:10px 22px;
   }
   .compare-callout strong{color:var(--accent);}
+  @media (max-width:600px){ .compare-callout{border-radius:18px;padding:12px 18px;} }
 
   /* ============ BÔNUS (página · data-driven, ver BONUS_ITEMS) ============ */
   .bonus-inner{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,56px);align-items:start;}
@@ -539,8 +577,10 @@ try{
     <div class="container hero-inner">
       <div class="hero-copy">
         <p class="eyebrow">Revisão de véspera · todas as grandes áreas</p>
-        <h1>Você estuda Medicina? Conheça uma forma <em>mais prática</em> de organizar suas revisões.</h1>
-        <p class="lede">Mapas mentais, resumos autorais e fichas-resumo reunidos em uma biblioteca digital para complementar seus estudos.</p>
+        <h1>Resumo bom não é resumo curto. É o resumo que <em>sua memória encontra</em> na hora da prova.</h1>
+        <!-- EDITE: os números entre parênteses vêm de CONFIG.counts (no <script>, no final da página).
+             O "+140" é texto fixo: se os totais mudarem, confira se ele continua verdadeiro. -->
+        <p class="lede">+140 materiais de revisão (<span data-count="totalMapas">+65</span> mapas, <span data-count="totalResumos">+30</span> resumos e <span data-count="totalFichas">+50</span> fichas) numa biblioteca digital para complementar seus estudos.</p>
         <p class="hero-formats">Mapas para visualizar. Resumos para aprofundar. Fichas para consultar.</p>
         <div class="hero-actions">
           <!-- EDITE: o link real vem de CONFIG.plans no <script>, no final da página -->
@@ -589,7 +629,7 @@ try{
     <div class="container problema-inner">
       <div>
         <p class="eyebrow">O problema</p>
-        <h2 class="section-title">Resumo bom não é resumo curto. É o resumo que sua memória encontra na hora da prova.</h2>
+        <h2 class="section-title">A véspera não precisa virar madrugada.</h2>
         <p class="lede" style="margin-top:20px;">Ninguém tira nota baixa por falta de conteúdo. Tira por não conseguir recuperar, sob pressão, algo que só foi lido uma vez — meses atrás, num PDF de 80 páginas.</p>
       </div>
       <div class="pain-grid">
@@ -714,6 +754,20 @@ try{
         <li><strong>Otimizado pra tela e pra impressão</strong> — leia no plantão ou imprima pra marcar com lápis.</li>
         <li><strong>Conteúdo cuidadosamente revisado</strong> antes da publicação.</li>
       </ul>
+      <!-- EDITE: tabela "Conteúdo por especialidade". As linhas são montadas a partir de
+           CONFIG.coverage (no <script>, no final da página). Fica oculta até você preencher
+           os números reais de cada área e ligar FEATURE_FLAGS.coberturaPorArea = true. -->
+      <div class="coverage" data-flag="coberturaPorArea">
+        <h3>Conteúdo por especialidade</h3>
+        <div class="coverage-wrap">
+          <table class="coverage-table">
+            <thead>
+              <tr><th>Especialidade</th><th>Mapas</th><th>Resumos</th><th>Fichas</th></tr>
+            </thead>
+            <tbody id="coverageBody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -841,15 +895,18 @@ try{
   <!-- ============ ORIGEM DOS MATERIAIS ============ -->
   <section class="section paper" id="origem">
     <div class="container origin-grid">
-      <!-- EDITE: imagem gerada por IA, usada como espaço reservado visual (sem legenda
-           visível, a pedido). Troque por uma fotografia real de quem criou o material
-           assim que houver uma disponível. -->
+      <!-- EDITE: foto real de quem criou o material (assets/autor.jpg). Pra trocar a foto,
+           substitua o arquivo mantendo o mesmo nome e ajuste o alt se a imagem mudar. -->
       <div class="author-photo reveal">
-        <img src="assets/medresumo-sobre-material.webp" alt="Profissional da saúde com jaleco e estetoscópio, usada como imagem representativa da seção" loading="lazy" width="900" height="1200">
+        <img src="assets/autor.jpg" alt="Foto de quem criou o MedResumo, sorrindo e fazendo o sinal de paz, de pijama cirúrgico azul-marinho" loading="lazy" width="736" height="981">
       </div>
       <div class="reveal">
         <p class="eyebrow">Sobre o material</p>
         <h2 class="section-title" style="max-width:28ch;">Materiais que nasceram durante seis anos de Medicina.</h2>
+        <!-- EDITE: [NOME] e [FACULDADE · ANO] são preenchidos a partir de CONFIG.autor (no <script>,
+             no final da página). Enquanto CONFIG.autor ainda tiver os placeholders, esta linha
+             fica oculta, pra página publicada nunca mostrar "[NOME]" pro visitante. -->
+        <p class="author-byline" data-author-block hidden><strong data-author="nome">[NOME]</strong> · <span data-author="faculdadeAno">[FACULDADE · ANO]</span></p>
         <p class="origin-text" style="margin-top:18px;">Durante minha graduação em Medicina, desenvolvi resumos para organizar meus estudos. A partir deles, também criei fichas-resumo com informações condensadas para facilitar minhas revisões. Agora, reuni esses materiais em uma biblioteca digital.</p>
       </div>
     </div>
@@ -885,18 +942,31 @@ try{
     </div>
   </section>
 
+  <!-- ============ DEPOIMENTOS (página · oculta sozinha enquanto TESTIMONIALS estiver vazio) ============ -->
+  <!-- EDITE: os depoimentos vêm do array TESTIMONIALS (no <script>, no final da página).
+       Use apenas depoimentos reais, com autorização de quem escreveu. -->
+  <section class="section paper" id="depoimentos" hidden>
+    <div class="container">
+      <div class="content-head">
+        <p class="eyebrow">Quem já usou</p>
+        <h2 class="section-title" style="max-width:26ch;">O que dizem os estudantes que já revisaram com o MedResumo</h2>
+      </div>
+      <div class="testimonials-grid" id="testimonialsGrid"></div>
+    </div>
+  </section>
+
   <!-- ============ O QUE VOCÊ RECEBE (só o confirmado) ============ -->
   <section class="section paper" id="o-que-voce-recebe">
     <div class="container">
       <div class="content-head">
         <p class="eyebrow">Antes de ver os planos</p>
         <h2 class="section-title" style="max-width:22ch;">O que você recebe</h2>
-        <p class="lede" style="margin-top:12px;">Só o que já está confirmado — sem número provisório.</p>
       </div>
       <ul class="specs-list">
         <li id="specMapas"></li>
         <li id="specResumos" data-flag="resumosAutorais"></li>
         <li id="specFichas" data-flag="fichasResumo"></li>
+        <li id="specCompleto"></li>
         <li><strong>Especialidades contempladas:</strong> Clínica Médica, Cirurgia, Pediatria, Ginecologia e Obstetrícia, Semiologia, Farmacologia, Emergências, Saúde Coletiva.</li>
         <li><strong>Formato dos arquivos:</strong> PDF digital, em alta resolução, otimizado pra tela e pra impressão.</li>
         <li><strong>Forma de acesso:</strong> Digital, liberado por e-mail após a confirmação do pagamento.</li>
@@ -912,6 +982,12 @@ try{
         <h2 class="section-title" style="max-width:32ch;">Dois jeitos de levar o MedResumo com você</h2>
         <p class="lede" style="margin-top:14px;">Pagamento único. Acesso <strong class="text-accent">vitalício</strong> — sem mensalidade, sem prazo de expiração. Dois checkouts independentes — escolha o seu.</p>
       </div>
+      <!-- EDITE: [NOME] e [FACULDADE] vêm de CONFIG.autor (no <script>, no final da página).
+           A faixa fica oculta enquanto CONFIG.autor ainda tiver os placeholders. -->
+      <p class="author-strip" data-author-block hidden>
+        <img src="assets/autor.jpg" alt="" loading="lazy" width="44" height="44">
+        <span>Material criado por <strong data-author="nome">[NOME]</strong>, <span data-author="faculdade">[FACULDADE]</span></span>
+      </p>
       <div class="plans-grid">
         <!-- EDITE: o link real vem de CONFIG.plans.essencial.checkoutUrl, no <script> no final da página -->
         <article class="plan-card reveal">
@@ -945,14 +1021,16 @@ try{
           <span class="lifetime-badge">Acesso vitalício</span>
           <ul class="plan-feats">
             <li>Tudo do Essencial</li>
-            <li data-flag="bibliotecaAmpliada">Biblioteca ampliada de mapas mentais</li>
-            <li data-flag="resumosAutorais">Resumos autorais produzidos durante seis anos de Medicina</li>
-            <li data-flag="fichasResumo">Fichas-resumo visuais desenvolvidas a partir dos resumos</li>
+            <li data-flag="bibliotecaAmpliada"><span><span data-count="totalMapas" data-count-fallback="Biblioteca ampliada de">+65</span> mapas mentais</span></li>
+            <li data-flag="resumosAutorais"><span><span data-count="totalResumos" data-count-fallback="Biblioteca de">+30</span> resumos autorais produzidos durante seis anos de Medicina</span></li>
+            <li data-flag="fichasResumo"><span><span data-count="totalFichas" data-count-fallback="Biblioteca de">+50</span> fichas-resumo visuais, de várias especialidades</span></li>
+            <li data-flag="bonusProvasAbertas">Bônus: links de provas abertas para treinar</li>
             <li data-flag="mapasClinicosExtras">Mapas clínicos complementares</li>
             <li data-flag="questoesProvas">Questões comentadas e provas autorizadas, somente quando disponíveis</li>
-            <li data-flag="flashcards" data-flag-or="outrosBonus">Materiais adicionais de organização, somente quando disponíveis</li>
+            <li data-flag="flashcards">Materiais adicionais de organização, somente quando disponíveis</li>
             <li>Acesso digital</li>
             <li>Garantia de 7 dias</li>
+            <li data-flag="orderBumps">Pacotes extras por área disponíveis no checkout</li>
           </ul>
           <a href="#" class="btn btn-primary plan-cta" id="ctaCompleto">QUERO O COMPLETO</a>
           <p class="checkout-pending" id="checkoutPendingCompleto" hidden>Checkout em configuração — em breve disponível.</p>
@@ -965,13 +1043,13 @@ try{
             <tr><th>Recurso</th><th>Essencial</th><th>Completo</th></tr>
           </thead>
           <tbody>
-            <tr data-flag="mapasMentais"><td>15 mapas mentais selecionados</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-            <tr data-flag="bibliotecaAmpliada"><td>Biblioteca ampliada de mapas mentais</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="resumosAutorais"><td>Resumos autorais de Medicina</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="fichasResumo"><td>Fichas-resumo visuais</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr data-flag="mapasMentais"><td>Mapas mentais</td><td class="yes">15</td><td class="yes" data-count="totalMapas" data-count-fallback="✓">+65</td></tr>
+            <tr data-flag="resumosAutorais"><td>Resumos autorais</td><td class="no">—</td><td class="yes" data-count="totalResumos" data-count-fallback="✓">+30</td></tr>
+            <tr data-flag="fichasResumo"><td>Fichas-resumo</td><td class="no">—</td><td class="yes" data-count="totalFichas" data-count-fallback="✓">+50</td></tr>
+            <tr data-flag="bonusProvasAbertas"><td>Bônus: provas abertas</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr data-flag="mapasClinicosExtras"><td>Mapas clínicos complementares</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr data-flag="questoesProvas"><td>Questões comentadas / provas autorizadas</td><td class="no">—</td><td class="yes">✓</td></tr>
-            <tr data-flag="flashcards" data-flag-or="outrosBonus"><td>Materiais extras de organização</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr data-flag="flashcards"><td>Materiais extras de organização</td><td class="no">—</td><td class="yes">✓</td></tr>
             <tr><td>Acesso digital</td><td class="yes">✓</td><td class="yes">✓</td></tr>
             <tr><td>Acesso vitalício</td><td class="yes">✓</td><td class="yes">✓</td></tr>
             <tr><td>Garantia de 7 dias</td><td class="yes">✓</td><td class="yes">✓</td></tr>
@@ -979,7 +1057,7 @@ try{
         </table>
       </div>
       <div class="compare-callout-wrap">
-        <p class="compare-callout" id="compareCallout">Por <strong>R$ 20</strong> a mais que o Essencial, você tem acesso aos materiais adicionais do Completo.</p>
+        <p class="compare-callout" id="compareCallout">Por <strong>R$ 20</strong> a mais, você leva o pacote completo: +65 mapas, +30 resumos, +50 fichas e o bônus de provas abertas.</p>
       </div>
       <p class="plans-note">Acesso liberado por e-mail após a confirmação do pagamento.</p>
     </div>
@@ -1015,13 +1093,13 @@ try{
   <section class="section paper" id="faq">
     <div class="container faq-inner">
       <div>
-        <p class="eyebrow">Glossário rápido</p>
+        <p class="eyebrow">Dúvidas frequentes</p>
         <h2 class="section-title" style="max-width:20ch;">Perguntas antes de decidir</h2>
       </div>
       <div class="faq-list">
         <details class="faq-item">
           <summary>Qual a diferença entre os planos? <span class="chev">+</span></summary>
-          <div class="faq-a"><p>O Essencial reúne 15 mapas mentais selecionados e materiais básicos de apoio. O Completo acrescenta a biblioteca ampliada, resumos autorais, fichas-resumo e os demais conteúdos efetivamente disponíveis.</p></div>
+          <div class="faq-a"><p>O Essencial reúne 15 mapas mentais. O Completo reúne <span data-count="totalMapas">+65</span> mapas mentais, <span data-count="totalResumos">+30</span> resumos autorais, <span data-count="totalFichas">+50</span> fichas-resumo<span data-flag="bonusProvasAbertas"> e o bônus de links de provas abertas</span>.</p></div>
         </details>
         <details class="faq-item">
           <summary>Como recebo os arquivos? <span class="chev">+</span></summary>
@@ -1071,7 +1149,8 @@ try{
       <a href="#amostras">Amostras</a>
       <a href="#planos">Planos</a>
       <a href="#faq">FAQ</a>
-      <a href="#">Contato</a>
+      <!-- EDITE: o e-mail vem de CONFIG.autor.email (no <script>, no final da página) -->
+      <a href="mailto:[EMAIL]" id="footerContato">Contato</a>
     </nav>
     <svg class="compass" viewBox="0 0 48 48" aria-hidden="true">
       <circle cx="24" cy="24" r="21" fill="none" stroke="var(--gold)" stroke-width="1.2"></circle>
@@ -1080,8 +1159,10 @@ try{
     </svg>
     <p class="footer-disclaimer">
       Material de apoio aos estudos, produzido para fins educacionais e de revisão. Não substitui livros-texto, diretrizes oficiais, avaliação profissional ou a orientação de professores e preceptores.
-      <!-- EDITE: nome legal, CNPJ/CPF, contato e ano -->
-      © 2026 MedResumo. Todos os direitos reservados.
+      <!-- EDITE: nome legal, CNPJ/CPF, contato e ano. [NOME] e [EMAIL] são trocados
+           automaticamente quando você preencher CONFIG.autor (no <script>, no final da página).
+           CNPJ/CPF, se for exibir, escreva direto aqui. -->
+      © 2026 MedResumo · <span data-author="nomeLegal">[NOME]</span> · Contato: <span data-author="email">[EMAIL]</span>. Todos os direitos reservados.
     </p>
   </div>
 </footer>
@@ -1112,14 +1193,40 @@ try{
     // EDITE: quando souber os números exatos, preencha aqui — nada mais precisa mudar.
     // null = ainda não confirmado (a página usa um texto genérico em vez de inventar número).
     counts: {
-      // O Essencial já tem 15 mapas confirmados — isso está fixo direto no texto
-      // do plano (não depende desta config). totalMapas aqui é o total da
-      // biblioteca AMPLIADA do Completo, que ainda não foi conferido.
-      totalMapas:    null,
-      totalResumos:  null,
-      totalFichas:   null,
+      // O Essencial tem 15 mapas — isso está fixo direto no texto do plano (não
+      // depende desta config). Os totais abaixo são do plano Completo e aparecem
+      // na página sempre no formato "+N" (ex.: 65 vira "+65"), em todo elemento
+      // marcado com data-count="totalMapas" / "totalResumos" / "totalFichas".
+      totalMapas:    65,   // os 15 do Essencial + 50 exclusivos do Completo
+      totalResumos:  30,
+      totalFichas:   50,
       totalQuestoes: null
-    }
+    },
+    // EDITE: dados de quem criou o material. Troque os placeholders entre colchetes
+    // pelos dados reais. Enquanto "nome" e "faculdade" tiverem colchetes, a linha de
+    // autoria (seção "Sobre o material") e a faixa acima dos planos ficam ocultas;
+    // o rodapé mostra os placeholders como estão.
+    autor: {
+      nome:         "[NOME]",       // como deve aparecer na página
+      faculdade:    "[FACULDADE]",
+      anoFormatura: "[ANO]",
+      nomeLegal:    "[NOME]",       // nome legal/razão social pro rodapé (pode ser igual a "nome")
+      email:        "[EMAIL]"       // e-mail de contato (link "Contato" e rodapé)
+    },
+    // EDITE: quantidade de materiais por especialidade, pra tabela "Conteúdo por
+    // especialidade" (seção "Dentro do kit"). Preencha com os números reais de cada
+    // área e depois ligue FEATURE_FLAGS.coberturaPorArea = true. null = ainda não
+    // conferido (a célula mostra "—"). As áreas são as mesmas das etiquetas da seção.
+    coverage: [
+      { area:"Clínica Médica",            mapas:null, resumos:null, fichas:null },
+      { area:"Cirurgia",                  mapas:null, resumos:null, fichas:null },
+      { area:"Pediatria",                 mapas:null, resumos:null, fichas:null },
+      { area:"Ginecologia e Obstetrícia", mapas:null, resumos:null, fichas:null },
+      { area:"Semiologia",                mapas:null, resumos:null, fichas:null },
+      { area:"Farmacologia",              mapas:null, resumos:null, fichas:null },
+      { area:"Emergências",               mapas:null, resumos:null, fichas:null },
+      { area:"Saúde Coletiva",            mapas:null, resumos:null, fichas:null }
+    ]
   };
 
   // true = aparece na página. false = fica oculto (o código continua aqui,
@@ -1131,20 +1238,40 @@ try{
     fichasResumo:          true,  // fichas-resumo visuais (Completo)
     mapasClinicosExtras:   false, // mapas clínicos complementares (Completo) — ative quando pronto
     questoesProvas:        false, // questões comentadas / provas autorizadas (Completo) — ative quando pronto
-    flashcards:            false  // flashcards e materiais de organização (Completo) — ative quando pronto
+    flashcards:            false, // flashcards e materiais de organização (Completo) — ative quando pronto
+    coberturaPorArea:      false, // tabela "Conteúdo por especialidade" — ative depois de preencher CONFIG.coverage
+    orderBumps:            false  // linha "Pacotes extras por área disponíveis no checkout" no card do Completo — ative quando os pacotes existirem no checkout
   };
 
   // Bônus do MedResumo Completo. available:false = não aparece como entregável
   // incluído na página pública. Quando TODOS estiverem false, a seção
   // de bônus inteira fica oculta automaticamente.
+  // "provasAbertas" são apenas LINKS pra provas públicas, nas fontes oficiais de cada
+  // banca/instituição — nenhum arquivo de prova é hospedado ou copiado neste projeto.
+  // EDITE: os links em si são entregues dentro do material do Completo; confira que
+  // cada um aponta pra página oficial. Não descreva este bônus como prova
+  // "comentada" nem "com gabarito explicado" (isso é outro recurso: questoesProvas).
   var BONUS_ITEMS = [
+    { id:"provasAbertas", title:"Links de Provas Abertas", desc:"Uma seleção de links para provas públicas, organizadas para você treinar todo o seu conhecimento depois de revisar.", available:true },
     { id:"cronograma", title:"Cronograma de Revisão de 30 Dias", desc:"Um roteiro dia a dia pra organizar o que revisar antes da prova, sem perder tempo decidindo por onde começar.", available:false },
     { id:"checklist",  title:"Checklist Pré-Prova",              desc:"Uma folha única pra revisar na última hora, com os pontos que mais aparecem em prova.", available:false },
     { id:"glossario",  title:"Glossário de Siglas Médicas",      desc:"As siglas que travam a leitura rápida — organizadas num guia de consulta instantânea.", available:false },
     { id:"grupoApoio", title:"Grupo de Apoio aos Estudos",       desc:"Um espaço pra tirar dúvidas de organização de estudo e trocar com quem está na mesma rota.", available:false }
   ];
   // "outrosBonus" é derivado dos BONUS_ITEMS acima — true se pelo menos 1 estiver available.
+  // (Hoje nenhuma linha da página depende dele: "Materiais adicionais de organização"
+  // depende só de FEATURE_FLAGS.flashcards.)
   FEATURE_FLAGS.outrosBonus = BONUS_ITEMS.some(function(b){ return b.available; });
+  // "bonusProvasAbertas" liga a linha "Bônus: links de provas abertas" no card do
+  // Completo, na tabela comparativa e no FAQ — segue o available do item acima.
+  FEATURE_FLAGS.bonusProvasAbertas = BONUS_ITEMS.some(function(b){ return b.id === 'provasAbertas' && b.available; });
+
+  // EDITE: depoimentos reais (com autorização de quem escreveu). Enquanto o array
+  // estiver vazio, a seção #depoimentos fica oculta automaticamente. A página mostra
+  // no máximo 3. Formato de cada item:
+  //   { text:"texto do depoimento", name:"Nome", school:"Faculdade · período", image:"assets/depoimento-1.jpg" }
+  // "image" é opcional (print da mensagem original); deixe "" ou omita se não houver.
+  var TESTIMONIALS = [];
 
   // Categorias e amostras reais da galeria. Pra adicionar uma amostra nova,
   // basta acrescentar um objeto no array GALLERY — nenhuma outra edição é necessária.
@@ -1261,7 +1388,11 @@ try{
     var diffText = Number.isInteger(diffReais) ? String(diffReais) : formatBRL(diffReais);
     var callout = document.getElementById('compareCallout');
     if(callout){
-      callout.innerHTML = 'Por <strong>R$ ' + diffText + '</strong> a mais que o Essencial, você tem acesso aos materiais adicionais do Completo.';
+      var cM = CONFIG.counts.totalMapas, cR = CONFIG.counts.totalResumos, cF = CONFIG.counts.totalFichas;
+      var countsOk = [cM, cR, cF].every(function(n){ return typeof n === 'number' && n > 0; });
+      callout.innerHTML = countsOk
+        ? 'Por <strong>R$ ' + diffText + '</strong> a mais, você leva o pacote completo: +' + cM + ' mapas, +' + cR + ' resumos, +' + cF + ' fichas' + (FEATURE_FLAGS.bonusProvasAbertas ? ' e o bônus de provas abertas.' : '.')
+        : 'Por <strong>R$ ' + diffText + '</strong> a mais que o Essencial, você tem acesso aos materiais adicionais do Completo.';
     }
   }catch(e){}
 
@@ -1331,22 +1462,22 @@ try{
     if(specMapas){
       var nMapas = CONFIG.counts.totalMapas;
       specMapas.innerHTML = (typeof nMapas === 'number' && nMapas > 0)
-        ? '<strong>+' + nMapas + ' mapas mentais</strong> confirmados na biblioteca ampliada.'
-        : '<strong>Biblioteca de mapas mentais</strong> — quantidade exata em confirmação.';
+        ? '<strong>+' + nMapas + ' mapas mentais</strong> no MedResumo Completo (15 deles também no Essencial).'
+        : '<strong>Biblioteca de mapas mentais</strong>, organizados por especialidade.';
     }
 
     var nResumos = CONFIG.counts.totalResumos;
-    var resumosAcimaDe50 = (typeof nResumos === 'number' && nResumos > 50);
+    var temResumos = (typeof nResumos === 'number' && nResumos > 0);
     var specResumos = document.getElementById('specResumos');
     if(specResumos){
-      specResumos.innerHTML = resumosAcimaDe50
-        ? '<strong>+50 resumos autorais</strong>, produzidos durante a graduação.'
+      specResumos.innerHTML = temResumos
+        ? '<strong>+' + nResumos + ' resumos autorais</strong>, produzidos durante a graduação.'
         : '<strong>Biblioteca de resumos autorais</strong>, produzidos durante a graduação.';
     }
     var resumosBadge = document.getElementById('resumosBadgeChip');
     if(resumosBadge){
-      resumosBadge.textContent = resumosAcimaDe50
-        ? '+50 RESUMOS AUTORAIS'
+      resumosBadge.textContent = temResumos
+        ? '+' + nResumos + ' RESUMOS AUTORAIS'
         : 'BIBLIOTECA DE RESUMOS AUTORAIS';
     }
 
@@ -1359,9 +1490,108 @@ try{
         : '<strong>Fichas-resumo visuais</strong>, organizadas por assunto.';
     }
 
+    // Resumo do conteúdo do Completo, numa linha só.
+    var specCompleto = document.getElementById('specCompleto');
+    if(specCompleto){
+      var temTodos = [nMapas, nResumos, nFichas].every(function(n){ return typeof n === 'number' && n > 0; });
+      if(temTodos){
+        specCompleto.innerHTML = '<strong>No MedResumo Completo:</strong> +' + nMapas + ' mapas mentais, +' + nResumos + ' resumos autorais, +' + nFichas + ' fichas-resumo' +
+          (FEATURE_FLAGS.bonusProvasAbertas ? ' e o bônus de links de provas abertas.' : '.');
+      } else {
+        specCompleto.hidden = true;
+      }
+    }
+
+    // Qualquer elemento com data-count="totalMapas|totalResumos|totalFichas" recebe
+    // o número de CONFIG.counts no formato "+N". Sem número confirmado (null), entra
+    // o texto de data-count-fallback (ou nada), pra nunca sobrar número desatualizado.
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var n = CONFIG.counts[el.getAttribute('data-count')];
+      el.textContent = (typeof n === 'number' && n > 0) ? '+' + n : (el.getAttribute('data-count-fallback') || '');
+    });
+
     // totalQuestoes fica preparado pra quando o banco de questões/provas for
     // confirmado (ver FEATURE_FLAGS.questoesProvas) — hoje nada na página usa
     // esse número ainda, porque o recurso está desligado por padrão.
+  }catch(e){}
+
+  /* ================================================================
+     AUTORIA — nome, faculdade e contato a partir de CONFIG.autor.
+     Placeholder = valor vazio ou ainda entre colchetes (ex.: "[NOME]").
+     ================================================================ */
+  try{
+    var AUTOR = CONFIG.autor || {};
+    function autorOk(v){ return typeof v === 'string' && v.trim() !== '' && v.indexOf('[') === -1; }
+    var autorValores = {
+      nome: AUTOR.nome,
+      faculdade: AUTOR.faculdade,
+      faculdadeAno: autorOk(AUTOR.anoFormatura) ? AUTOR.faculdade + ' · ' + AUTOR.anoFormatura : AUTOR.faculdade,
+      nomeLegal: AUTOR.nomeLegal,
+      email: AUTOR.email
+    };
+    document.querySelectorAll('[data-author]').forEach(function(el){
+      var v = autorValores[el.getAttribute('data-author')];
+      if(autorOk(v)) el.textContent = v;
+    });
+    // Linha de autoria e faixa acima dos planos: só aparecem com nome e faculdade reais.
+    if(autorOk(AUTOR.nome) && autorOk(AUTOR.faculdade)){
+      document.querySelectorAll('[data-author-block]').forEach(function(el){ el.hidden = false; });
+    }
+    var footerContato = document.getElementById('footerContato');
+    if(footerContato && autorOk(AUTOR.email)) footerContato.href = 'mailto:' + AUTOR.email;
+  }catch(e){}
+
+  /* ================================================================
+     COBERTURA POR ESPECIALIDADE — linhas a partir de CONFIG.coverage.
+     A tabela inteira depende de FEATURE_FLAGS.coberturaPorArea.
+     ================================================================ */
+  try{
+    var coverageBody = document.getElementById('coverageBody');
+    if(coverageBody){
+      (CONFIG.coverage || []).forEach(function(row){
+        var tr = document.createElement('tr');
+        [row.area, row.mapas, row.resumos, row.fichas].forEach(function(v){
+          var td = document.createElement('td');
+          td.textContent = (v === null || v === undefined) ? '—' : String(v);
+          tr.appendChild(td);
+        });
+        coverageBody.appendChild(tr);
+      });
+    }
+  }catch(e){}
+
+  /* ================================================================
+     DEPOIMENTOS — renderizado a partir de TESTIMONIALS; some sozinho se vazio
+     ================================================================ */
+  try{
+    var depoSection = document.getElementById('depoimentos');
+    var depoGrid = document.getElementById('testimonialsGrid');
+    var depoimentos = TESTIMONIALS.filter(function(t){ return t && t.text && t.name; }).slice(0, 3);
+    if(depoSection && depoGrid && depoimentos.length > 0){
+      depoimentos.forEach(function(t){
+        var fig = document.createElement('figure');
+        fig.className = 'testimonial-card reveal';
+        if(t.image){
+          var img = document.createElement('img');
+          img.className = 'testimonial-print';
+          img.src = t.image;
+          img.alt = 'Print do depoimento de ' + t.name;
+          img.loading = 'lazy';
+          fig.appendChild(img);
+        }
+        var quote = document.createElement('blockquote');
+        quote.textContent = t.text;
+        fig.appendChild(quote);
+        var cap = document.createElement('figcaption');
+        var nome = document.createElement('strong');
+        nome.textContent = t.name;
+        cap.appendChild(nome);
+        if(t.school) cap.appendChild(document.createTextNode(t.school));
+        fig.appendChild(cap);
+        depoGrid.appendChild(fig);
+      });
+      depoSection.hidden = false;
+    }
   }catch(e){}
 
   /* ================================================================
