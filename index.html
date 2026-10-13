@@ -221,7 +221,7 @@
   @media (max-width:600px){
     .hero{padding-top:92px;}
     .hero .eyebrow{display:none;}
-    .hero h1{font-size:1.9rem;}
+    .hero h1{font-size:1.7rem;}
     .hero .lede{margin-top:14px;font-size:1rem;line-height:1.6;}
     .hero-offer{margin-top:16px;padding-left:12px;}
     .hero-offer-meta{font-size:.66rem;letter-spacing:0;}
@@ -421,7 +421,7 @@
     margin-top:-6px;font-family:var(--ff-mono);font-size:.82rem;letter-spacing:.02em;
     color:var(--on-surface-dimmer);text-align:center;
   }
-  /* Faixa de autoria acima dos planos (some sozinha enquanto CONFIG.autor não for preenchido) */
+  /* Faixa de autoria acima dos planos (aparece quando CONFIG.autor.nome estiver preenchido) */
   .author-strip{
     display:flex;align-items:center;gap:12px;max-width:860px;margin:0 auto 34px;
     font-size:.92rem;color:var(--on-surface-dim);
@@ -613,7 +613,7 @@ try{
         <div class="hero-actions">
           <!-- EDITE: o link real vem de CONFIG.plans no <script>, no final da página -->
           <a href="#planos" class="btn btn-primary" id="heroCta">QUERO ACESSAR OS MATERIAIS</a>
-          <a href="#demonstracao" class="btn btn-ghost">VER AMOSTRAS REAIS</a>
+          <a href="#amostras" class="btn btn-ghost">VER AMOSTRAS REAIS</a>
         </div>
       </div>
       <!-- EDITE: amostra real exibida na capa. Pra trocar, mude o src, o alt e a legenda juntos. -->
@@ -789,11 +789,11 @@ try{
         <h2 class="section-title" style="max-width:32ch;">Dois jeitos de levar o MedResumo com você</h2>
         <p class="lede" style="margin-top:14px;">Pagamento único. Acesso <strong class="text-accent">vitalício</strong> — sem mensalidade, sem prazo de expiração. Escolha o seu.</p>
       </div>
-      <!-- EDITE: [NOME] e [FACULDADE] vêm de CONFIG.autor (no <script>, no final da página).
-           A faixa fica oculta enquanto CONFIG.autor ainda tiver os placeholders. -->
+      <!-- EDITE: nome e faculdade vêm de CONFIG.autor (no <script>, no final da página).
+           A faixa aparece quando houver nome; a faculdade (com a vírgula) só entra se estiver preenchida. -->
       <p class="author-strip" data-author-block hidden>
         <img src="assets/autor.jpg" alt="" loading="lazy" width="44" height="44">
-        <span>Material criado por <strong data-author="nome">[NOME]</strong>, <span data-author="faculdade">[FACULDADE]</span></span>
+        <span>Material criado por <strong data-author="nome">Luana Mendes</strong><span data-author-opt="faculdade" hidden>, <span data-author="faculdade"></span></span></span>
       </p>
       <div class="plans-grid">
         <!-- EDITE: o link real vem de CONFIG.plans.essencial.checkoutUrl, no <script> no final da página -->
@@ -964,10 +964,10 @@ try{
       <div class="reveal">
         <p class="eyebrow">Sobre o material</p>
         <h2 class="section-title" style="max-width:28ch;">Materiais que nasceram durante seis anos de Medicina.</h2>
-        <!-- EDITE: [NOME] e [FACULDADE · ANO] são preenchidos a partir de CONFIG.autor (no <script>,
-             no final da página). Enquanto CONFIG.autor ainda tiver os placeholders, esta linha
-             fica oculta, pra página publicada nunca mostrar "[NOME]" pro visitante. -->
-        <p class="author-byline" data-author-block hidden><strong data-author="nome">[NOME]</strong> · <span data-author="faculdadeAno">[FACULDADE · ANO]</span></p>
+        <!-- EDITE: nome, faculdade e ano de formatura vêm de CONFIG.autor (no <script>, no final
+             da página). A linha aparece quando houver nome; "faculdade · ano" (com o separador)
+             só entra se pelo menos um dos dois estiver preenchido. -->
+        <p class="author-byline" data-author-block hidden><strong data-author="nome">Luana Mendes</strong><span data-author-opt="faculdadeAno" hidden> · <span data-author="faculdadeAno"></span></span></p>
         <p class="origin-text" style="margin-top:18px;">Durante minha graduação em Medicina, desenvolvi resumos para organizar meus estudos. A partir deles, também criei fichas-resumo com informações condensadas para facilitar minhas revisões. Agora, reuni esses materiais em uma biblioteca digital.</p>
       </div>
     </div>
@@ -1021,7 +1021,7 @@ try{
         </details>
         <details class="faq-item">
           <summary>Os resumos foram produzidos por quem? <span class="chev">+</span></summary>
-          <div class="faq-a"><p>Os resumos foram desenvolvidos por quem criou o MedResumo, ao longo de seis anos de graduação em Medicina.</p></div>
+          <div class="faq-a"><p>Os resumos foram desenvolvidos por <span data-author="nome">Luana Mendes</span>, ao longo de seis anos de graduação em Medicina.</p></div>
         </details>
         <details class="faq-item">
           <summary>O kit substitui livros e aulas? <span class="chev">+</span></summary>
@@ -1079,8 +1079,6 @@ try{
       <a href="#amostras">Amostras</a>
       <a href="#planos">Planos</a>
       <a href="#faq">FAQ</a>
-      <!-- EDITE: o e-mail vem de CONFIG.autor.email (no <script>, no final da página) -->
-      <a href="mailto:[EMAIL]" id="footerContato">Contato</a>
     </nav>
     <svg class="compass" viewBox="0 0 48 48" aria-hidden="true">
       <circle cx="24" cy="24" r="21" fill="none" stroke="var(--gold)" stroke-width="1.2"></circle>
@@ -1089,10 +1087,9 @@ try{
     </svg>
     <p class="footer-disclaimer">
       Material de apoio aos estudos, produzido para fins educacionais e de revisão. Não substitui livros-texto, diretrizes oficiais, avaliação profissional ou a orientação de professores e preceptores.
-      <!-- EDITE: nome legal, CNPJ/CPF, contato e ano. [NOME] e [EMAIL] são trocados
-           automaticamente quando você preencher CONFIG.autor (no <script>, no final da página).
-           CNPJ/CPF, se for exibir, escreva direto aqui. -->
-      © 2026 MedResumo · <span data-author="nomeLegal">[NOME]</span> · Contato: <span data-author="email">[EMAIL]</span>. Todos os direitos reservados.
+      <!-- EDITE: nome legal e ano. O nome vem de CONFIG.autor.nomeLegal (no <script>, no final
+           da página). CNPJ/CPF, se for exibir, escreva direto aqui. -->
+      © 2026 MedResumo · <span data-author="nomeLegal">Luana Mendes</span>. Todos os direitos reservados.
     </p>
   </div>
 </footer>
@@ -1134,16 +1131,16 @@ try{
       totalFichas:   50,
       totalQuestoes: null
     },
-    // EDITE: dados de quem criou o material. Troque os placeholders entre colchetes
-    // pelos dados reais. Enquanto "nome" e "faculdade" tiverem colchetes, a linha de
-    // autoria (seção "Sobre o material") e a faixa acima dos planos ficam ocultas;
-    // o rodapé mostra os placeholders como estão.
+    // EDITE: dados de quem criou o material. "nome" aparece na seção "Sobre o material",
+    // na faixa acima dos planos e no FAQ; "nomeLegal" aparece no rodapé. "faculdade" e
+    // "anoFormatura" são opcionais: enquanto estiverem vazios ("") a página mostra só o
+    // nome; preenchidos, voltam a aparecer como "Nome · Faculdade · Ano" (seção) e
+    // "Material criado por Nome, Faculdade" (faixa).
     autor: {
-      nome:         "[NOME]",       // como deve aparecer na página
-      faculdade:    "[FACULDADE]",
-      anoFormatura: "[ANO]",
-      nomeLegal:    "[NOME]",       // nome legal/razão social pro rodapé (pode ser igual a "nome")
-      email:        "[EMAIL]"       // e-mail de contato (link "Contato" e rodapé)
+      nome:         "Luana Mendes", // como deve aparecer na página
+      faculdade:    "",
+      anoFormatura: "",
+      nomeLegal:    "Luana Mendes"  // nome legal/razão social pro rodapé (pode ser igual a "nome")
     },
     // EDITE: quantidade de materiais por especialidade, pra tabela "Conteúdo por
     // especialidade" (seção "Dentro do kit"). Preencha com os números reais de cada
@@ -1425,8 +1422,8 @@ try{
   }catch(e){}
 
   /* ================================================================
-     AUTORIA — nome, faculdade e contato a partir de CONFIG.autor.
-     Placeholder = valor vazio ou ainda entre colchetes (ex.: "[NOME]").
+     AUTORIA — nome e faculdade a partir de CONFIG.autor.
+     Valor "preenchido" = texto não vazio e sem colchetes de placeholder.
      ================================================================ */
   try{
     var AUTOR = CONFIG.autor || {};
@@ -1434,20 +1431,23 @@ try{
     var autorValores = {
       nome: AUTOR.nome,
       faculdade: AUTOR.faculdade,
-      faculdadeAno: autorOk(AUTOR.anoFormatura) ? AUTOR.faculdade + ' · ' + AUTOR.anoFormatura : AUTOR.faculdade,
-      nomeLegal: AUTOR.nomeLegal,
-      email: AUTOR.email
+      // "Faculdade · Ano", só "Faculdade" ou só "Ano", conforme o que estiver preenchido.
+      faculdadeAno: [AUTOR.faculdade, AUTOR.anoFormatura].filter(autorOk).join(' · '),
+      nomeLegal: AUTOR.nomeLegal
     };
     document.querySelectorAll('[data-author]').forEach(function(el){
       var v = autorValores[el.getAttribute('data-author')];
       if(autorOk(v)) el.textContent = v;
     });
-    // Linha de autoria e faixa acima dos planos: só aparecem com nome e faculdade reais.
-    if(autorOk(AUTOR.nome) && autorOk(AUTOR.faculdade)){
+    // Trechos opcionais (separador + faculdade/ano): só aparecem com o dado preenchido,
+    // pra não sobrar " · " nem vírgula solta.
+    document.querySelectorAll('[data-author-opt]').forEach(function(el){
+      el.hidden = !autorOk(autorValores[el.getAttribute('data-author-opt')]);
+    });
+    // Linha de autoria e faixa acima dos planos: aparecem sempre que houver nome.
+    if(autorOk(AUTOR.nome)){
       document.querySelectorAll('[data-author-block]').forEach(function(el){ el.hidden = false; });
     }
-    var footerContato = document.getElementById('footerContato');
-    if(footerContato && autorOk(AUTOR.email)) footerContato.href = 'mailto:' + AUTOR.email;
   }catch(e){}
 
   /* ================================================================
