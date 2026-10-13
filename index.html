@@ -343,12 +343,8 @@
     border:1px solid var(--edge);box-shadow:var(--shadow-deep);background:var(--surface);
   }
   .author-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;}
-  .photo-caption{
-    max-width:300px;margin-top:10px;font-family:var(--ff-mono);font-size:.72rem;letter-spacing:.03em;
-    text-transform:uppercase;color:var(--on-surface-dimmer);text-align:center;
-  }
   .origin-text{font-family:var(--ff-display);font-size:1.18rem;line-height:1.75;color:var(--on-surface);font-style:italic;}
-  @media (max-width:880px){ .origin-grid{grid-template-columns:1fr;} .author-photo,.photo-caption{margin-inline:auto;} }
+  @media (max-width:880px){ .origin-grid{grid-template-columns:1fr;} .author-photo{margin-inline:auto;} }
 
   /* ============ PARA QUEM É ============ */
   .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
@@ -845,13 +841,11 @@ try{
   <!-- ============ ORIGEM DOS MATERIAIS ============ -->
   <section class="section paper" id="origem">
     <div class="container origin-grid">
-      <!-- EDITE: imagem ilustrativa gerada por IA, usada como espaço reservado visual.
-           Troque por uma fotografia real de quem criou o material assim que houver uma disponível. -->
-      <div>
-        <div class="author-photo reveal">
-          <img src="assets/medresumo-sobre-material.webp" alt="Imagem ilustrativa de profissional da saúde com jaleco e estetoscópio, usada como representação visual da seção" loading="lazy" width="900" height="1200">
-        </div>
-        <p class="photo-caption reveal">Imagem ilustrativa — não é uma fotografia real da autora</p>
+      <!-- EDITE: imagem gerada por IA, usada como espaço reservado visual (sem legenda
+           visível, a pedido). Troque por uma fotografia real de quem criou o material
+           assim que houver uma disponível. -->
+      <div class="author-photo reveal">
+        <img src="assets/medresumo-sobre-material.webp" alt="Profissional da saúde com jaleco e estetoscópio, usada como imagem representativa da seção" loading="lazy" width="900" height="1200">
       </div>
       <div class="reveal">
         <p class="eyebrow">Sobre o material</p>
