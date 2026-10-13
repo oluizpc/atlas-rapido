@@ -177,6 +177,7 @@
   }
   .hero h1 em{font-style:italic;color:var(--gold);}
   .hero .lede{margin-top:20px;font-size:1.1rem;color:var(--mist);}
+  .hero-formats{margin-top:14px;font-family:var(--ff-mono);font-size:.88rem;letter-spacing:.02em;color:var(--gold-soft);}
   .hero-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px;}
   .hero-trust{display:flex;flex-wrap:wrap;gap:22px;margin-top:34px;}
   .hero-trust li{font-family:var(--ff-mono);font-size:.78rem;color:var(--mist-dim);letter-spacing:.02em;}
@@ -537,16 +538,17 @@ try{
     <div class="container hero-inner">
       <div class="hero-copy">
         <p class="eyebrow">Revisão de véspera · todas as grandes áreas</p>
-        <h1>A faculdade te deu <em>seis anos</em> de matéria. A prova te dá <em>seis horas</em> pra revisar.</h1>
-        <p class="lede">Mapas mentais, resumos autorais e fichas-resumo para revisar assuntos de Medicina com mais organização e praticidade.</p>
+        <h1>Você já passa horas estudando Medicina. Precisa passar <em>mais horas</em> organizando seus resumos?</h1>
+        <p class="lede">Conheça uma biblioteca digital com mapas mentais, resumos autorais e fichas-resumo para complementar sua revisão de Medicina.</p>
+        <p class="hero-formats">Mapas para visualizar. Resumos para aprofundar. Fichas para consultar.</p>
         <div class="hero-actions">
           <!-- EDITE: o link real vem de CONFIG.plans no <script>, no final da página -->
-          <a href="#planos" class="btn btn-primary" id="heroCta">Quero revisar com mais clareza →</a>
-          <a href="#amostras" class="btn btn-ghost">Ver amostras reais</a>
+          <a href="#planos" class="btn btn-primary" id="heroCta">CONHECER O KIT COMPLETO</a>
+          <a href="#amostras" class="btn btn-ghost">VER AMOSTRAS REAIS</a>
         </div>
         <ul class="hero-trust">
           <li>PDF em alta resolução</li>
-          <li data-flag="resumosAutorais">Resumos autorais e fichas-resumo disponíveis no Kit Completo</li>
+          <li data-flag="resumosAutorais">Resumos autorais e fichas-resumo no Kit Completo</li>
           <li>Acesso <strong class="text-accent">vitalício</strong> e imediato após a compra</li>
         </ul>
       </div>
@@ -709,7 +711,7 @@ try{
         <li data-flag="fichasResumo"><strong>Fichas-resumo visuais</strong>, com quadros e destaques pra consulta rápida.</li>
         <li data-flag="questoesProvas"><strong>Provas antigas comentadas</strong> — gabarito explicado passo a passo, não só a letra certa.</li>
         <li><strong>Otimizado pra tela e pra impressão</strong> — leia no plantão ou imprima pra marcar com lápis.</li>
-        <li><strong>Atualizações incluídas</strong> sempre que revisamos ou ampliamos o conteúdo.</li>
+        <li><strong>Conteúdo cuidadosamente revisado</strong> antes da publicação.</li>
       </ul>
     </div>
   </section>
@@ -802,8 +804,8 @@ try{
     <div class="container">
       <div class="demo-head">
         <p class="eyebrow">Exemplo real</p>
-        <h2 class="section-title" style="max-width:30ch;">Um mesmo assunto. Diferentes formas de revisar.</h2>
-        <p class="lede" style="margin-top:14px;">Conheça como os resumos e as fichas-resumo se complementam na organização dos estudos.</p>
+        <h2 class="section-title" style="max-width:30ch;">Um assunto. Diferentes formas de revisar.</h2>
+        <p class="lede" style="margin-top:14px;">Você escolhe o formato que melhor complementa o momento do seu estudo.</p>
       </div>
       <span class="demo-topic">Contracepção — Ginecologia e Obstetrícia</span>
       <!-- Pra acrescentar um 3º card (mapa mental autoral do mesmo assunto, se/quando existir):
@@ -828,6 +830,9 @@ try{
             <p class="content-desc">Os principais pontos condensados em uma ficha visual para consulta rápida.</p>
           </div>
         </article>
+      </div>
+      <div style="text-align:center;margin-top:40px;">
+        <a href="#planos" class="btn btn-primary">QUERO CONHECER OS PLANOS</a>
       </div>
     </div>
   </section>
@@ -912,7 +917,7 @@ try{
         <!-- EDITE: o link real vem de CONFIG.plans.essencial.checkoutUrl, no <script> no final da página -->
         <article class="plan-card reveal">
           <h3>Kit Essencial</h3>
-          <p class="plan-sub">Sua revisão começa aqui.</p>
+          <p class="plan-sub">Uma opção mais simples para começar a revisar com mapas mentais.</p>
           <div class="plan-price">
             <span class="new" id="priceEssencial"><small>R$</small>17,90</span>
             <span class="per">pagamento único</span>
@@ -933,7 +938,7 @@ try{
         <article class="plan-card plan-featured reveal">
           <span class="plan-tag">MAIS COMPLETO</span>
           <h3>Kit Completo</h3>
-          <p class="plan-sub">Mapas, resumos e fichas para uma revisão mais completa.</p>
+          <p class="plan-sub">Uma biblioteca de revisão médica em diferentes formatos, reunida em um único kit.</p>
           <div class="plan-price">
             <span class="new" id="priceCompleto"><small>R$</small>37,90</span>
             <span class="per">pagamento único</span>
@@ -975,7 +980,7 @@ try{
         </table>
       </div>
       <div class="compare-callout-wrap">
-        <p class="compare-callout" id="compareCallout">Por <strong>R$ 20</strong> a mais, tenha acesso aos materiais adicionais do Kit Completo.</p>
+        <p class="compare-callout" id="compareCallout">Por <strong>apenas R$ 20</strong> a mais que o Essencial, você recebe os materiais adicionais do Completo.</p>
       </div>
       <p class="plans-note">Acesso liberado por e-mail após a confirmação do pagamento.</p>
     </div>
@@ -1176,6 +1181,40 @@ try{
   }catch(e){}
 
   /* ================================================================
+     UTM DA VISITA — captura os parâmetros da URL de chegada (de qual anúncio/
+     criativo a pessoa veio) e guarda na sessão, pra não perder se ela navegar
+     dentro da própria página. Usado só pra repassar pro checkout e pro Pixel —
+     nunca inventa um valor que não veio de verdade na URL.
+     ================================================================ */
+  var UTM_PARAMS = (function(){
+    var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+    try{
+      var fromUrl = {};
+      var qs = new URLSearchParams(window.location.search);
+      keys.forEach(function(k){
+        var v = qs.get(k);
+        if(v) fromUrl[k] = v;
+      });
+      if(Object.keys(fromUrl).length > 0){
+        sessionStorage.setItem('atlasUtm', JSON.stringify(fromUrl));
+        return fromUrl;
+      }
+      var stored = sessionStorage.getItem('atlasUtm');
+      return stored ? JSON.parse(stored) : {};
+    }catch(e){ return {}; }
+  })();
+  function appendUtmToUrl(url){
+    try{
+      var keys = Object.keys(UTM_PARAMS);
+      if(!url || keys.length === 0) return url;
+      var sep = url.indexOf('?') === -1 ? '?' : '&';
+      return url + sep + keys.map(function(k){
+        return encodeURIComponent(k) + '=' + encodeURIComponent(UTM_PARAMS[k]);
+      }).join('&');
+    }catch(e){ return url; }
+  }
+
+  /* ================================================================
      PREÇOS, LINKS DE CHECKOUT E CALLOUT DE DIFERENÇA — tudo a partir de CONFIG
      ================================================================ */
   try{
@@ -1196,7 +1235,7 @@ try{
       var configured = !!url;
       if(cta){
         if(configured){
-          cta.href = url;
+          cta.href = appendUtmToUrl(url);
           cta.removeAttribute('aria-disabled');
         } else {
           cta.setAttribute('aria-disabled', 'true');
@@ -1223,7 +1262,7 @@ try{
     var diffText = Number.isInteger(diffReais) ? String(diffReais) : formatBRL(diffReais);
     var callout = document.getElementById('compareCallout');
     if(callout){
-      callout.innerHTML = 'Por <strong>R$ ' + diffText + '</strong> a mais, tenha acesso aos materiais adicionais do Kit Completo.';
+      callout.innerHTML = 'Por <strong>apenas R$ ' + diffText + '</strong> a mais que o Essencial, você recebe os materiais adicionais do Completo.';
     }
   }catch(e){}
 
@@ -1241,7 +1280,9 @@ try{
         if(now - lastTrackAt < 1200) return;
         lastTrackAt = now;
         var p = CONFIG.plans[planKey];
-        fbq('track', 'InitiateCheckout', { content_name:p.name, value:p.price, currency:'BRL' });
+        var payload = { content_name:p.name, value:p.price, currency:'BRL' };
+        Object.keys(UTM_PARAMS).forEach(function(k){ payload[k] = UTM_PARAMS[k]; });
+        fbq('track', 'InitiateCheckout', payload);
       }catch(e){}
     }
     function wireCta(id, planKey){
