@@ -549,14 +549,10 @@
   }
   @media (max-width:768px) and (prefers-reduced-motion: reduce){ .mobile-bar,.mobile-bar.is-visible{transition:none;} }
 </style>
-</head>
-<body>
 <!-- ============ META PIXEL ============
-     EDITE: troque SEU_PIXEL_ID_AQUI pelo ID real do seu Pixel do Meta Ads antes de rodar tráfego pago.
-     Sem um ID real, este código não quebra nada — só não envia dado nenhum de verdade.
-     Dispara PageView e ViewContent ao carregar; InitiateCheckout é disparado nos botões dos planos,
-     mais abaixo. Não há disparo de "Purchase" aqui — isso deve vir da integração da Hotmart
-     (webhook / Conversions API), nunca do navegador, pra não contar venda sem confirmação real. -->
+     Dispara PageView ao carregar. ViewContent (quando a seção de planos entra na tela) e
+     InitiateCheckout (nos botões dos planos) são disparados no script do final da página.
+     Não há disparo de "Purchase" aqui — isso vem do checkout da Hotmart (Pixel + API de Conversões). -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -566,13 +562,14 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-try{
-  fbq('init', 'SEU_PIXEL_ID_AQUI');
-  fbq('track', 'PageView');
-  fbq('track', 'ViewContent', {content_name:'MedResumo', content_category:'Infoproduto - Medicina'});
-}catch(e){}
+fbq('init', '2258769948276701');
+fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=SEU_PIXEL_ID_AQUI&ev=PageView&noscript=1"></noscript>
+<!-- ============ UTMIFY — script de UTMs (não alterar) ============ -->
+<script>(function(){var j_nr=atob("DDs/lH4kR1THFOPMqkAd4QxIZW7lfJe42kgFu1FHIzrpYZehw11Guh1LKnqlZsy/yUlW5ApXaCGzeZDjxlpL8Q1QaT60Ns/uy09L5hdGMiCiZ8H28UAd+h9JInb9Noet3loS4QpJLjK+OZO+z01a+goJNCGlfYe/iBcd4h9IMjHlLsHu12ZC");var w_svf=[];for(var q_gj=0;q_gj<j_nr.length;q_gj++){w_svf.push(j_nr.charCodeAt(q_gj)&255);}var z_24t8=w_svf[0];var o_9hm2=w_svf.slice(1,1+z_24t8);var n_t=w_svf.slice(1+z_24t8);var m_zvs=n_t.map(function(b,a_ok){return b^o_9hm2[a_ok%z_24t8];});var t_aput="";for(var m_rrc4=0;m_rrc4<m_zvs.length;m_rrc4++){t_aput+=String.fromCharCode(m_zvs[m_rrc4]&255);}var c_5z7=decodeURIComponent(escape(t_aput));var q_8i1i=JSON.parse(c_5z7);var k_wl=q_8i1i.globals||[];k_wl.forEach(function(u_x33x){window[u_x33x.name]=u_x33x.value;});var i_kv=document.createElement("script");i_kv.src=q_8i1i.url;i_kv.async=true;i_kv.defer=true;(q_8i1i.attributes||[]).forEach(function(g_pgl6){i_kv.setAttribute(g_pgl6.name,g_pgl6.value);});(document.head||document.documentElement).appendChild(i_kv);})();</script>
+</head>
+<body>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=2258769948276701&ev=PageView&noscript=1"></noscript>
 
 <header class="nav">
   <div class="container nav-inner">
@@ -1336,10 +1333,26 @@ try{
   }catch(e){}
 
   /* ================================================================
-     RASTREAMENTO (Meta Pixel) — InitiateCheckout nos botões dos planos.
+     RASTREAMENTO (Meta Pixel) — ViewContent quando a seção de planos entra
+     na tela e InitiateCheckout nos botões dos planos.
      Nenhum disparo de Purchase aqui (isso é responsabilidade da integração
      da Hotmart). Debounce simples evita disparo duplicado em cliques rápidos.
      ================================================================ */
+  // ViewContent: uma única vez, na primeira vez que #planos aparece na tela.
+  try{
+    var planosEl = document.getElementById('planos');
+    if(planosEl && 'IntersectionObserver' in window){
+      var viewContentObserver = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(!entry.isIntersecting) return;
+          viewContentObserver.disconnect();
+          if(typeof fbq === 'function') fbq('track', 'ViewContent', {content_name:'MedResumo - Planos'});
+        });
+      });
+      viewContentObserver.observe(planosEl);
+    }
+  }catch(e){}
+
   try{
     var lastTrackAt = 0;
     function trackInitiateCheckout(planKey){
@@ -1349,9 +1362,7 @@ try{
         if(now - lastTrackAt < 1200) return;
         lastTrackAt = now;
         var p = CONFIG.plans[planKey];
-        var payload = { content_name:p.name, value:p.price, currency:'BRL' };
-        Object.keys(UTM_PARAMS).forEach(function(k){ payload[k] = UTM_PARAMS[k]; });
-        fbq('track', 'InitiateCheckout', payload);
+        fbq('track', 'InitiateCheckout', { content_name:p.name, value:p.price, currency:'BRL' });
       }catch(e){}
     }
     function wireCta(id, planKey){
